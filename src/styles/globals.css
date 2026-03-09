@@ -1,0 +1,603 @@
+/* Don't use @import to load fonts in production! It's slow and will cause FOUC.
+Instead, self-host the fonts, or use https://fontsource.org/ 
+
+See also JetBrains Mono: 
+
+  https://www.jetbrains.com/lp/mono/
+  https://fonts.google.com/specimen/JetBrains+Mono?specimen.preview.text=30 */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+/*  When using Mantine we can't use just this.
+
+@import 'tailwindcss'; */
+
+/* The order in the @layer statement establishes the CSS cascade priority for those layers. 
+later layers have higher priority for normal CSS declarations.
+
+  - Preflight (base) vs. Mantine: Mantine wins when declarations conflict.
+  - Mantine vs. components: Components wins.
+  - Mantine vs. utilities: Tailwind utilities win.
+
+
+See here for next-app-mantine-tailwind-template:
+https://github.com/songkeys/next-app-mantine-tailwind-template/blob/main/src/app/theme.css
+*/
+@layer theme, base, mantine, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* Do not use '@mantine/core/styles.css'
+Instead use '@mantine/core/styles.layer.css';
+It useses @layer mantine internally, which we reference above.
+Note: Mantine's reset changes the body background color and text color.
+
+  body, :host {
+    margin: 0;
+    font-family: var(--mantine-font-family);
+    font-size: var(--mantine-font-size-md);
+    line-height: var(--mantine-line-height);
+    background-color: var(--mantine-color-body);
+    color: var(--mantine-color-text);
+
+    -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
+    -moz-osx-font-smoothing: var(--mantine-moz-font-smoothing);
+  }
+
+This has the effect of overwriting the body styles in @layer base below.
+One solution is to use @layer mantine instead for setting default styles.
+However, the more idiomatic approach is to create a cssVariablesResolver
+and pass it to the MantineProvider. */
+@import '@mantine/core/styles.layer.css';
+@import 'tw-animate-css'; /* See node_modules/tw-animate-css/dist */
+
+/* See node_modules/shadcn/dist/tailwind.css 
+In newer versions of shadcn/ui, the shadcn package is needed as a dependency. 
+It's basically some @keyframes and @custom-variant styles. */
+@import 'shadcn/tailwind.css';
+
+/* ======================
+        :root
+====================== */
+
+:root {
+  --background: #f3f4f1;
+  --background-inverted: var(--color-slate-900);
+  --foreground: #212529;
+  /* The purpose of --card in ShadCN's design system is specifically intended 
+  to create surfaces that visually distinguish from the background, providing 
+  depth and hierarchy. This applies not just to Card components, but to any 
+  container that needs to "pop" or stand out as a distinct surface.  */
+  --card: rgb(248, 248, 248);
+  /* This is used as a lighter variation on top of the card color.
+  For example, if you have a form that is bg-card, then the inputs
+  can be bg-card-accented. Obviouly, this is only effective if your
+  --card color isn't maximally white (or black in dark mode). */
+  --card-accented: #fff;
+  --card-inverted: oklch(24.35% 0.042 262.9);
+
+  --vue-green: #42b883;
+  --vue-gray: #35495e;
+
+  /* ⚠️ Note: Nuxt UI generates --ui-color-*-* CSS variables. Use
+  those when you need the custom property instead of a class name. */
+
+  /* Currently, primary and secondary are based off the the Vue green and gray.
+  See here for brand colors:https://brandcolors.net/  
+  
+  However, those brand colors are not treated as the 500 variants.
+  Instead, I went to:
+
+    https://uicolors.app/generate/42b883
+    https://uicolors.app/generate/35495e
+
+  which ended up placing them at 400 and 800 respectively.
+  In other words, the generator assesed the starting color more
+  intelligently, placed it accordingy to its relative tone/brightness
+  (i.e., lightness spectrum), then built a palette around it. 
+  
+  In some cases what we really want is the actual primary or secondary color.
+  For that, we could do this:
+
+    --ui-primary-abs: var(--vue-gree);      ❌
+    --ui-secondary-abs: var(--vue-gray);    ❌
+
+    --color-primary-abs: var(--vue-green);  ❌
+    --color-secondary-abs: var(--vue-gray); ❌
+
+  But this will just add another layer of complexity to the color system.
+    
+  Moreover, this doesn't change the fact that Nuxt UI's --ui-primary is generated from
+  --color-primary-500 in light and --color-primary-400 in light, and the --ui-* shorthand
+  is always what's used in component props like: <Button color="primary" />.
+  
+  Ultimately, once you find a  light --ui-primary / --ui-secondary and dark --ui-primary / --ui-secondary
+  that works for you, the shorthands begin to be very useful, but until then it feels like you're fighting
+  the system. */
+
+  --primary-50: #eefbf4;
+  --primary-100: #d6f5e3;
+  --primary-200: #b1e9ca;
+  --primary-300: #7ed7ac;
+  --primary-400: var(--vue-green);
+  --primary-500: #27a26f;
+  --primary-600: #188359;
+  --primary-700: #136949;
+  --primary-800: #12533b;
+  --primary-900: #104432;
+  --primary-950: #08261c;
+  --primary: var(--primary-500);
+  /* # Eventually, get rid of these foreground colors. */
+  --primary-foreground: #fff;
+
+  --secondary-50: #f5f7fa;
+  --secondary-100: #eaeef4;
+  --secondary-200: #d1dbe6;
+  --secondary-300: #a9bdd0;
+  --secondary-400: #7a9ab6;
+  --secondary-500: #5a7d9d;
+  --secondary-600: #466483;
+  --secondary-700: #3a516a;
+  --secondary-800: var(--vue-gray);
+  --secondary-900: #2e3c4c;
+  --secondary-950: #1e2733;
+  --secondary: var(--secondary-500);
+  --secondary-foreground: #fff;
+
+  --success-50: var(--color-green-50);
+  --success-100: var(--color-green-100);
+  --success-200: var(--color-green-200);
+  --success-300: var(--color-green-300);
+  --success-400: var(--color-green-400);
+  --success-500: var(--color-green-500);
+  --success-600: var(--color-green-600);
+  --success-700: var(--color-green-700);
+  --success-800: var(--color-green-800);
+  --success-900: var(--color-green-900);
+  --success-950: var(--color-green-950);
+  --success: var(--color-green-500);
+  --success-foreground: #fff;
+
+  --info-50: var(--color-blue-50);
+  --info-100: var(--color-blue-100);
+  --info-200: var(--color-blue-200);
+  --info-300: var(--color-blue-300);
+  --info-400: var(--color-blue-400);
+  --info-500: var(--color-blue-500);
+  --info-600: var(--color-blue-600);
+  --info-700: var(--color-blue-700);
+  --info-800: var(--color-blue-800);
+  --info-900: var(--color-blue-900);
+  --info-950: var(--color-blue-950);
+  --info: var(--color-blue-500);
+  --info-foreground: #fff;
+
+  --warning-50: var(--color-yellow-50);
+  --warning-100: var(--color-yellow-100);
+  --warning-200: var(--color-yellow-200);
+  --warning-300: var(--color-yellow-300);
+  --warning-400: var(--color-yellow-400);
+  --warning-500: var(--color-yellow-500);
+  --warning-600: var(--color-yellow-600);
+  --warning-700: var(--color-yellow-700);
+  --warning-800: var(--color-yellow-800);
+  --warning-900: var(--color-yellow-900);
+  --warning-950: var(--color-yellow-950);
+  --warning: var(--color-yellow-500);
+  --warning-foreground: #fff;
+
+  --destructive-50: var(--color-rose-50);
+  --destructive-100: var(--color-rose-100);
+  --destructive-200: var(--color-rose-200);
+  --destructive-300: var(--color-rose-300);
+  --destructive-400: var(--color-rose-400);
+  --destructive-500: var(--color-rose-500);
+  --destructive-600: var(--color-rose-600);
+  --destructive-700: var(--color-rose-700);
+  --destructive-800: var(--color-rose-800);
+  --destructive-900: var(--color-rose-900);
+  --destructive-950: var(--color-rose-950);
+  --destructive: var(--color-rose-500);
+  --destructive-foreground: #fff;
+
+  /* Muted */
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: rgb(134, 142, 150);
+
+  /* Accent */
+  --accent: oklch(from var(--card) calc(l - 0.05) c h);
+  --accent-foreground: var(--foreground);
+
+  /* Border
+
+  ⚠️ ShadCN uses just --border, but that will conflict with Daisy UI's --border.
+
+
+  This is used to create --color-border above. 
+  It can then be used to do className="border border-border". 
+  This creates the default border color. It's value is in that
+  it also changes when the mode is dark. However, ShadCN goes one
+  step further and applies `border-border` globally with *, so 
+  we only need to use the `border` class by itself. */
+  --border-color: var(--color-neutral-300);
+
+  /* Sidebar: Curently, the sidebar's header, footer, group label are set to primary.
+  I also set the ThemeToggle and SidebarTrigger to do something similar.
+  This may not be a good idea, depending on what the primary color is - especially when dark.
+  That said, I'm leaving it for now... */
+  --sidebar: var(--card);
+  --sidebar-border: var(--border-color);
+  --sidebar-accent: var(--accent);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Ring */
+  --ring: oklch(0.708 0 0);
+
+  /* Chart */
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+}
+
+/* ======================
+        .dark
+====================== */
+
+.dark {
+  --background: var(--color-slate-900);
+  --background-inverted: #f3f4f1;
+  --foreground: #fafafa;
+
+  /* Slate 900 is roughly rgb(15, 23, 42) 
+  Slate 800 is roughly rgb(29, 41, 61) or rgb(28.59, 40.81, 60.86)
+  In light mode we essentially bump the card color rgb by 5+ for r,g and b.
+  Here, a jump from slate 900 to slate 800 would be more of a 15+ jump.
+  If we want to bump by exactly 5, we could do this:
+
+    --card: rgb(20, 28, 47);
+
+  However, that feels too dark still. In this case, splitting the differnce 
+  between slate 900 and 800 feels better. */
+
+  --card: oklch(24.35% 0.042 262.9);
+  --card-accented: var(--color-slate-800);
+  --card-inverted: rgb(248, 248, 248);
+
+  /* In dark mode, the generic variants are lighter. This follows the patter used
+  by Nuxt UI: https://ui.nuxt.com/docs/getting-started/theme/css-variables#colors 
+  That said, this may only be important in situations where the light version of 
+  the color is already fairly dark. */
+  --primary: var(--primary-400);
+  --secondary: var(--secondary-400);
+  --success: var(--success-400);
+  --info: var(--info-400);
+  --warning: var(--warning-400);
+  --destructive: var(--destructive-400);
+
+  /* Muted */
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: rgb(134, 142, 150);
+
+  /* Accent */
+  --accent: oklch(from var(--card) calc(l + 0.1) c h);
+  --accent-foreground: var(--foreground);
+
+  /* Border */
+  --border-color: #555;
+
+  /* Sidebar */
+  --sidebar: var(--card);
+  --sidebar-border: var(--border-color);
+  --sidebar-accent: var(--accent);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-ring: oklch(0.556 0 0);
+
+  /* Ring */
+  --ring: oklch(0.556 0 0);
+
+  /* Chart */
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+}
+
+/* ======================
+          Theme
+====================== */
+/* ShadCN uses @theme inline, but this causes various problems for the Mantine theming implementation. 
+Only the keyword changes. static forces Tailwind to emit every --color-* variable in the block, 
+whether or not a utility uses it. Either just use @theme or try @theme inline static */
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-background-inverted: var(--background-inverted);
+  --color-card: var(--card);
+  --color-card-accented: var(--card-accented);
+
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+  --color-primary-950: var(--primary-950);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary-50: var(--secondary-50);
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondary-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-600: var(--secondary-600);
+  --color-secondary-700: var(--secondary-700);
+  --color-secondary-800: var(--secondary-800);
+  --color-secondary-900: var(--secondary-900);
+  --color-secondary-950: var(--secondary-950);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-success-50: var(--success-50);
+  --color-success-100: var(--success-100);
+  --color-success-200: var(--success-200);
+  --color-success-300: var(--success-300);
+  --color-success-400: var(--success-400);
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+  --color-success-700: var(--success-700);
+  --color-success-800: var(--success-800);
+  --color-success-900: var(--success-900);
+  --color-success-950: var(--success-950);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  --color-info-50: var(--info-50);
+  --color-info-100: var(--info-100);
+  --color-info-200: var(--info-200);
+  --color-info-300: var(--info-300);
+  --color-info-400: var(--info-400);
+  --color-info-500: var(--info-500);
+  --color-info-600: var(--info-600);
+  --color-info-700: var(--info-700);
+  --color-info-800: var(--info-800);
+  --color-info-900: var(--info-900);
+  --color-info-950: var(--info-950);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  --color-warning-50: var(--warning-50);
+  --color-warning-100: var(--warning-100);
+  --color-warning-200: var(--warning-200);
+  --color-warning-300: var(--warning-300);
+  --color-warning-400: var(--warning-400);
+  --color-warning-500: var(--warning-500);
+  --color-warning-600: var(--warning-600);
+  --color-warning-700: var(--warning-700);
+  --color-warning-800: var(--warning-800);
+  --color-warning-900: var(--warning-900);
+  --color-warning-950: var(--warning-950);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  --color-destructive-50: var(--destructive-50);
+  --color-destructive-100: var(--destructive-100);
+  --color-destructive-200: var(--destructive-200);
+  --color-destructive-300: var(--destructive-300);
+  --color-destructive-400: var(--destructive-400);
+  --color-destructive-500: var(--destructive-500);
+  --color-destructive-600: var(--destructive-600);
+  --color-destructive-700: var(--destructive-700);
+  --color-destructive-800: var(--destructive-800);
+  --color-destructive-900: var(--destructive-900);
+  --color-destructive-950: var(--destructive-950);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  /* Muted Color */
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  /* Accent Color */
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  /* Border Color: Admittedly, the naming convention is kind of bad. 
+  It would be better if it was --color-default-border. */
+  --color-border: var(--border-color);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --color-ring: var(--ring);
+
+  /* Font Types */
+  /* Tailwind v4 uses this to apply the --default-font-family on html, :host */
+  --font-sans:
+    'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* Chart Color */
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+}
+
+/* ======================
+          Base
+====================== */
+/* Be careful when adding anything additional to the base layer. The Tailwind 
+preflight.css does a pretty good job already. If you go setting additional 
+properties here, you may get too accustomed to that behavior when building 
+components and be surprised when migrating those same components to a different 
+project that does not have the additional base styles. For that reason, it's 
+recommended that this not be changed. */
+
+@layer base {
+  * {
+    /* The idea here with border-border is that by simply applying `border` we immediately 
+    get the benefits of different color borders in light/dark mode. */
+    @apply border-border outline-ring/50;
+  }
+
+  /* Above we say that --font-sans is 'Poppins', sans-serif */
+  body {
+    @apply bg-background text-foreground font-sans;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    @apply font-sans;
+  }
+
+  /* Tailwind CSS v4 changed its Preflight so that buttons use cursor: default instead of 
+  cursor: pointer to match  browser defaults. If you'd like to restore the pointer cursor 
+  globally, add these base styles to your CSS: */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+#root {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  /* Septermber 4, 2023.
+  Kevin Powell has a video where he discourages using
+  vh units here.
+ 
+    https://www.youtube.com/watch?v=veEqYQlfNx8 
+
+  At 3:15 in the above video, he demonstrates that
+  on mobile web it doesn't always work out the way
+  we intend. One potential fix for this is to use
+  dvh units instead. Because browser support isn't 
+  all the way there yet, we can also use a vh fallback.
+
+  It's important to note that he explicitly advises against
+  using 100vw because on windows it doesn't take into account
+  the scrollbar.
+  
+  The other alternative for setting height on #root would be
+  to also set height:100% on html and body, then set 
+  height:100%; min-height:100%; here (i.e., old-skool). 
+
+  See also: 
+  https://www.youtube.com/watch?v=O16af0iRs44
+  https://web.dev/viewport-units/
+  */
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+th {
+  text-align: -webkit-match-parent;
+}
+
+/* ======================
+       Mantine
+====================== */
+
+/* @layer mantine {} */
+
+/* ======================
+      Components
+====================== */
+/* @layer components should also work in any local CSS file 
+across the entire app, such that if you do something like this:
+
+  @layer components { .box-color { background-color: red; } }
+
+Then have a component that imports that local.css file and,
+a Tailwind utility that attempts to overwrite it:
+
+  <div className='box-color size-50 bg-lime-500' />
+
+The utility wins out. That's the beauty of cascade layers. */
+
+@layer components {
+  @import '../components/Table/index.css';
+
+  /* ======================
+      .transition-none 
+  ====================== */
+  /* Note: Tailwind already has a transition-none that sets
+  transition-property: none; However, this is useful for forcing
+  it everywhere. Currently, it's hardcoded on <html> to prevent 
+  light/dark theme transition from happening on mount. */
+
+  .transition-none-all,
+  .transition-none-all * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+  }
+
+  /* ======================
+      .hide-scrollbar 
+  ====================== */
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ======================
+        Utilities
+====================== */
+/* To add a custom utility in v4.0, use the new @utility directive: */
+
+/* @utility your-class-name {} */
+
+/* ======================
+        Plugins
+====================== */
+
+@plugin '../tw-plugins/placeholderPlugin';
+@plugin '../tw-plugins/readMorePlugin';
+@plugin '../tw-plugins/spinnerPlugin';
+@plugin '../tw-plugins/modalPlugin';
+@plugin '../tw-plugins/listGroupPlugin';
+@plugin '../tw-plugins/paginationPlugin';
+
+/* ======================
+        Variants
+====================== */
+/* Mantine reacts to data-mantine-color-scheme on <html>.
+Tailwind and ShadCN react to .dark on <html>.
+
+Changes are controlled through this props in NextThemeProvider.tsx
+attribute={['class', 'data-mantine-color-scheme']} */
+@custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
+@custom-variant system (&:is(.system *));
