@@ -1,0 +1,67 @@
+// This is an example of a type that can be used as a client/server contract for API calls.
+
+import { auth } from '@/lib/auth'
+import { SUPPORTED_OAUTH_PROVIDERS } from '@/lib/constants'
+import { codes } from '@/utils'
+
+// export type Code =
+//   | 'OK'
+//   | 'CREATED'
+//   | 'UPDATED'
+//   | 'DELETED'
+//   | 'BAD_REQUEST'
+//   | 'UNAUTHORIZED'
+//   | 'FORBIDDEN'
+//   | 'NOT_FOUND'
+//   | 'INTERNAL_SERVER_ERROR'
+//   | 'STOCK_ERROR_FOUND'
+//   | 'PRICE_ERROR_FOUND'
+//   | 'ORDER_EXISTS'
+//   | 'USER_ARCHIVED'
+//   | 'INVALID_CREDENTIALS'
+//   | 'EMAIL_UNVERIFIED'
+
+export type Code = (typeof codes)[keyof typeof codes]
+
+export type ResBody<DataType> = {
+  code?: Code
+  data: DataType
+  errors?: Record<string, string> | null
+  message: string
+  success: boolean
+  // Adding this makes the type more flexible, while still being informative. That
+  // said, if you need additional properties, it's MUCH safer to write a custom type.
+  // [key: string]: any
+}
+
+export type ResponsePromise<T = unknown> = Promise<ResBody<T>>
+
+///////////////////////////////////////////////////////////////////////////
+//
+// better-auth exports their own User and Session, but
+// they're the default versions (i.e., not inferred):
+//
+//  import { User, Session } from 'better-auth'
+//
+// Coding in Flow tutorial does something similar at 38:40.
+// Kind of confusing that there's a session.session
+// What could go wrong?
+//
+///////////////////////////////////////////////////////////////////////////
+
+export type InferredSession = typeof auth.$Infer.Session
+export type Session = InferredSession['session']
+export type User = InferredSession['user']
+
+export type SupportedOAuthProvider = (typeof SUPPORTED_OAUTH_PROVIDERS)[number]
+
+export type Post = {
+  id: string
+  title: string
+  body: string
+  published: boolean
+  author?: User
+  authorId: string
+  createdAt: string // Would be date, but transformed to string with Prisma $extends.
+  updatedAt: string // Would be date, but transformed to string with Prisma $extends.
+}

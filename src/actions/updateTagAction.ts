@@ -1,0 +1,58 @@
+'use server'
+
+import { updateTag } from 'next/cache'
+import { codes, handleError } from '@/utils'
+import { ResponsePromise } from '@/types'
+
+/* ========================================================================
+              
+======================================================================== */
+///////////////////////////////////////////////////////////////////////////
+//
+// https://nextjs.org/docs/app/api-reference/functions/updateTag
+//
+// This action is used inside of the UpdateTagButton client component.
+// While it's useful to have a dedicated action for updating tags, it's much more
+// likely that updateTag(tag) will be used inside of other mutating actions.
+//
+// Remember if you update a post, you must update the 'posts' tag as well as `post-${postId}`.
+// What about when the post is deleted? There is actually no mechanism for removing a cache entry.
+// At first, this seemed like an issue. However, my current understanding is that Next.js 16
+// cache expiration follows a lazy/on-demand revalidation pattern. It does NOT proactively refetch
+// in the background. That said, I don't think expired cache entries are automatically deleted.
+// Rather, they are eventually evicted by LRU when cache needs space. Physical removal happens via
+// LRU eviction when memory pressure requires it. So... There is a cleanup mechanism, but it's not
+// as simple as expired = deleted.
+//
+// Good to know: updateTag immediately expires the cached data for the specified tag.
+// The next request will wait to fetch fresh data rather than serving stale content from the cache,
+// ensuring users see their changes immediately.
+//
+// If you're currently on a page with the data, it will refresh
+// it under the hood and then give you new data in real-time. However, the update will
+// not trigger the Suspense fallback a second time.
+//
+///////////////////////////////////////////////////////////////////////////
+
+type UpdateTagActionData = null
+type UpdateTagActionResponsePromise = ResponsePromise<UpdateTagActionData>
+type UpdateTagAction = (tag: string) => UpdateTagActionResponsePromise
+
+export const updateTagAction: UpdateTagAction = async (tag) => {
+  try {
+    updateTag(tag)
+
+    return {
+      code: codes.OK,
+      data: null,
+      message: `The ${tag} tag was updated.`,
+      success: true
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      return handleError(err, err.message)
+    }
+
+    return handleError(err)
+  }
+}
