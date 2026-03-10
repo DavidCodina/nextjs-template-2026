@@ -34,6 +34,7 @@ export const ForgotPasswordForm = () => {
       try {
         // If the email address exists, it sends the reset password email to the user
         // By "exists", we likely mean if it exists in our database.
+
         const { data, error } = await authClient.requestPasswordReset({
           email: email,
 
@@ -95,7 +96,7 @@ export const ForgotPasswordForm = () => {
           />
 
           <Button className='flex w-full' loading={pending} onClick={handleForgotPassword}>
-            Send Reset Password Email
+            {pending ? 'Sending Reset Password Email...' : 'Send Reset Password Email'}
           </Button>
         </div>
       </form>

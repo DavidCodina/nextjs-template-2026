@@ -12,7 +12,7 @@ import { Alert, Button, Input } from '@/components'
 
 ======================================================================== */
 //# Add confirm password field.
-//# Switcht to using InputPassword component.
+//# Switch to using InputPassword component.
 
 const ResetPasswordForm = () => {
   const router = useRouter()

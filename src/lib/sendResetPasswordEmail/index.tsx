@@ -4,7 +4,6 @@ import { ResetPasswordTemplate } from './ResetPasswordTemplate'
 type SendResetPasswordEmailArg = {
   email: string
   name: string
-  /** The URL the user clicks in order to verify their email. This will also redirect to the application. */
   url: string
 }
 
@@ -17,8 +16,8 @@ const resend = new Resend(process.env.RESEND_API_KEY!)
 //
 // ✅ Coding In Flow at 1:08:00 : https://www.youtube.com/watch?v=w5Emwt3nuV0
 // ✅ WDS at 1:28:50            : https://www.youtube.com/watch?v=WPiqNDapQrk
-// ✅  OrcDev                   : https://www.youtube.com/watch?v=dZpHdVkKYcs
-// Cand Dev at ...              : https://www.youtube.com/watch?v=829nKH5FmCs
+// ✅ OrcDev                    : https://www.youtube.com/watch?v=dZpHdVkKYcs
+// Cand Dev at 36:00            : https://www.youtube.com/watch?v=829nKH5FmCs
 //
 ///////////////////////////////////////////////////////////////////////////
 
