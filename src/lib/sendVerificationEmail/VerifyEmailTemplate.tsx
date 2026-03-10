@@ -75,7 +75,7 @@ const hr = {
 //   See here also for more on Resend, but not Better Auth: https://www.youtube.com/watch?v=QyGJLm55EDk
 //
 // ✅ OrcDev                  : https://www.youtube.com/watch?v=psEbIHyuutk
-//    He uses a cool AI tool for generating email code: https://new.email/
+//    He uses a cool AI tool (by Resend) for generating email code: https://new.email/
 //    It seems to generate templates using react-email + <Tailwind>
 //
 // ✅ Coding In FLow at 53:45 : https://www.youtube.com/watch?v=w5Emwt3nuV0

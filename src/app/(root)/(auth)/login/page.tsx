@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
 
 import { Page, PageContainer, Title } from '@/components'
 import { LoginForm } from './components/LoginForm'
@@ -9,6 +8,9 @@ export const metadata: Metadata = {
   description: 'The Login Page'
 }
 
+/* ========================================================================
+                                PageLogin
+======================================================================== */
 ///////////////////////////////////////////////////////////////////////////
 //
 // ⚠️ Gotcha: LoginForm implements useSearchParams().
@@ -26,9 +28,6 @@ export const metadata: Metadata = {
 // See also useSearchParams() docs: https://nextjs.org/docs/app/api-reference/functions/use-search-params
 //
 ///////////////////////////////////////////////////////////////////////////
-/* ========================================================================
-                                PageLogin
-======================================================================== */
 
 const PageLogin = () => {
   /* ======================
@@ -48,9 +47,7 @@ const PageLogin = () => {
           Login
         </Title>
 
-        <Suspense fallback={null}>
-          <LoginForm />
-        </Suspense>
+        <LoginForm />
       </PageContainer>
     </Page>
   )

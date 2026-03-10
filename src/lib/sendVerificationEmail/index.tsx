@@ -36,7 +36,7 @@ export const sendVerificationEmail = async ({ email: _email, name, url }: SendVe
       //
       // With Resend, you have to use specific email adddresses that resend provides
       // for testing purposes. If you have a Pro account ($20/month), you can use your
-      // own domain email. However, I've also heard that it's free to use for up to one domain (?).
+      // own domain email. Actually, it seems you can have one free domain per account.
       //
       // For now, I've hardcoded the `to` address to go to delivered@resend.dev.
       // Obviously, this means the end user won't receieve the email at their true email for now.
@@ -62,6 +62,6 @@ export const sendVerificationEmail = async ({ email: _email, name, url }: SendVe
       react: <VerifyEmailTemplate name={name} url={url} />
     })
   } catch (_err) {
-    console.log('\n\nError sending verification email.', _err)
+    // console.log('\n\nError sending verification email.', _err)
   }
 }

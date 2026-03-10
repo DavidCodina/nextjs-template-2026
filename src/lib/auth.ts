@@ -17,6 +17,7 @@ import { prisma } from '@/lib/db/prisma'
 ///////////////////////////////////////////////////////////////////////////
 import { nextCookies } from 'better-auth/next-js'
 import { sendVerificationEmail } from './sendVerificationEmail'
+import { sendResetPasswordEmail } from './sendResetPasswordEmail'
 
 /* ========================================================================
 
@@ -97,14 +98,15 @@ export const auth = betterAuth({
 
     // If you try to log in with an unverified email, you'll get an "Email not verified" error.
     // {message: 'Email not verified', code: 'EMAIL_NOT_VERIFIED', status: 403, statusText: 'FORBIDDEN'}
-    requireEmailVerification: true
-    // sendResetPassword: async ({ user, url, token }, _request) => {
-    //   await sendResetPasswordEmail({
-    //     email: user.email,
-    //     name: user.name,
-    //     url
-    //   })
-    // },
+    requireEmailVerification: true,
+    sendResetPassword: async (parameter, _request) => {
+      const { user, url /*, token */ } = parameter
+      await sendResetPasswordEmail({
+        email: user.email,
+        name: user.name,
+        url
+      })
+    }
   },
 
   emailVerification: {

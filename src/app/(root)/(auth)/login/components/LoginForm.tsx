@@ -345,6 +345,12 @@ const LoginForm = () => {
           Sign Up
         </Link>
       </div>
+
+      <div className='text-muted-foreground text-center text-sm'>
+        <Link className='text-primary font-medium underline' href='/forgot-password' target='_self'>
+          Forgot Password?
+        </Link>
+      </div>
     </>
   )
 }
