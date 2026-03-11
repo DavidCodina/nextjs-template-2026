@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Fragment, useState, useTransition } from 'react'
-// import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import { Button, Input } from '@/components'
@@ -23,7 +23,7 @@ import { register } from '@/actions'
 ======================================================================== */
 
 export const RegisterForm = () => {
-  // const router = useRouter()
+  const router = useRouter()
   //! const [firstName, setFirstName] = useState('')
   //! const [lastName, setLastName] = useState('')
   const [name, setName] = useState('')
@@ -95,20 +95,28 @@ export const RegisterForm = () => {
 
         if (res.success === true) {
           // toast.success('Registration success! Confirmation email sent.')
-          toast.success('Reigistration success!')
+          toast.success('Registration success!')
           // Because we're using requireEmailVerification: true, we can instead
           // use the callbackURL in the Better Auth signUp function. It won't redirect
           // until AFTER the email is verified. Actually, the redirect will open in a
           // new tab, rather than from the current application tab.
 
-          // ❌ router.push('/login')
+          router.push('/login')
         } else {
-          toast.error('Unable to register.')
+          toast.error(
+            "Unable to register. Ensure you're using a valid email/password and not already registered through a social provider.",
+            {
+              duration: Infinity
+            }
+          )
         }
-      } catch {
-        toast.error('Unable to register.', {
-          duration: Infinity
-        })
+      } catch (_err) {
+        toast.error(
+          "Unable to register. Ensure you're using a valid email/password and not already registered through a social provider.",
+          {
+            duration: Infinity
+          }
+        )
       } finally {
         setName('')
         setEmail('')

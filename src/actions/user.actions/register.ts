@@ -86,7 +86,6 @@ export const register: Register = async ({ name, email, password, confirmPasswor
       //  const existingUser = await prisma.user.findUnique({ where: { email }  })
       //
       ///////////////////////////////////////////////////////////////////////////
-
       const existingUser = await prisma.user.findFirst({
         where: {
           email: {
@@ -95,9 +94,9 @@ export const register: Register = async ({ name, email, password, confirmPasswor
           }
         }
       })
-
       if (existingUser) {
-        formErrors.email = 'A user with that email already exists. (Server)' // 409 Conflict error
+        // ❌ formErrors.email = 'A user with that email already exists. (Server)' // 409 Conflict error
+        formErrors.email = 'Invalid email.'
       }
     }
 
@@ -164,28 +163,6 @@ export const register: Register = async ({ name, email, password, confirmPasswor
     })
 
     /* ======================
-    Send Verification Token
-    ====================== */
-
-    //# const verificationToken = await generateVerificationToken(email)
-
-    ///////////////////////////////////////////////////////////////////////////
-    //
-    // {
-    //   id: 'clrs2nxn30001ku5px6qi71xs',
-    //   email: 'jerk@mail.com',
-    //   token: '7c50149f-55e8-4790-a6d0-82c60137a1d5',
-    //   expires: 2024-01-24T18:41:37.934Z
-    // }
-    //
-    ///////////////////////////////////////////////////////////////////////////
-
-    //# await sendVerificationEmail(
-    //#   verificationToken.email,
-    //#   verificationToken.token
-    //# )
-
-    /* ======================
            Response
     ====================== */
 
@@ -204,7 +181,7 @@ export const register: Register = async ({ name, email, password, confirmPasswor
     if (err instanceof Error) {
       //^ Better Auth enforces longer passwords by default, so use: 12345678
       // Example: { name: 'APIError', message: 'Password too short' }
-      console.log({ name: err.name, message: err.message })
+      // console.log({ name: err.name, message: err.message })
     }
     return {
       code: 'INTERNAL_SERVER_ERROR',

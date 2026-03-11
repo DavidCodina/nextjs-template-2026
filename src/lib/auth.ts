@@ -86,6 +86,29 @@ export const auth = betterAuth({
     }
   },
 
+  // Note: account linking is enabled by default in Better Auth, and OAuth providers like Google and GitHub are trusted by default.
+  // Thus, explicitly enabling it and setting trustedProviders: ['google', 'github'] isn't doing anything new.
+
+  // account: {
+  //   // Forced Linking: https://better-auth.com/docs/concepts/users-accounts#forced-linking
+  //   accountLinking: {
+  //     enabled: true,
+  //     ///////////////////////////////////////////////////////////////////////////
+  //     //
+  //     // According to AI: trustedProviders only applies in one direction: it allows trusted
+  //     // OAuth providers (Google, GitHub) to automatically link to an existing credentials
+  //     // account when the emails match. It does not handle the reverse — a credentials sign-up
+  //     // linking to an existing OAuth-only account.
+  //     //
+  //     // The key insight is that trustedProviders is asymmetric by design — social providers are trusted
+  //     // to claim an existing email, but a credentials sign-up is not trusted to claim an existing social
+  //     // account, since it could be used to hijack an account by someone who merely knows the email address.
+  //     //
+  //     ///////////////////////////////////////////////////////////////////////////
+  //     trustedProviders: ['google', 'github']
+  //   }
+  // },
+
   // trustedOrigins: ...
 
   // https://www.better-auth.com/docs/authentication/email-password

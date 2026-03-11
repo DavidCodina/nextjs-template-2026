@@ -30,8 +30,6 @@ export const ClientSession = () => {
   // to their types. However, I'm assuming that in practice they never coexist.
   const { data, error, isPending /*, isRefetching, refetch */ } = value
 
-  console.log(data)
-
   ///////////////////////////////////////////////////////////////////////////
   //
   // Gotcha: This will happen ONLY if you log data:

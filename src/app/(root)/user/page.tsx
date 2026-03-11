@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { /* Authenticated, */ Page, PageContainer, Title } from '@/components'
 
-import { ServerSession } from './ServerSession'
-//import { ClientSession } from './ClientSession'
+// import { ServerSession } from './ServerSession'
+// import { ClientSession } from './ClientSession'
+import { SetPasswordForm } from './SetPasswordForm'
 
 export const metadata: Metadata = {
   title: {
@@ -107,11 +108,10 @@ const PageUser = async () => {
           User
         </Title>
 
-        <ServerSession />
+        <SetPasswordForm />
 
-        {/* <Suspense>
-          <ClientSession />
-        </Suspense> */}
+        {/* <ServerSession /> */}
+        {/* <Suspense><ClientSession /></Suspense> */}
       </PageContainer>
     </Page>
     // </Authenticated>
