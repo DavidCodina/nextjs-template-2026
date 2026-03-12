@@ -3,8 +3,7 @@ import { /* Authenticated, */ Page, PageContainer, Title } from '@/components'
 
 // import { ServerSession } from './ServerSession'
 // import { ClientSession } from './ClientSession'
-import { LinkCredentialsForm } from './LinkCredentialsForm'
-import { LinkSocialAccounts } from './LinkSocialAccounts'
+import { LinkAccounts } from './LinkAccounts'
 
 export const metadata: Metadata = {
   title: {
@@ -109,12 +108,7 @@ const PageUser = async () => {
           User
         </Title>
 
-        <LinkSocialAccounts />
-
-        <br />
-        <br />
-
-        <LinkCredentialsForm />
+        <LinkAccounts />
 
         {/* <ServerSession /> */}
         {/* <Suspense><ClientSession /></Suspense> */}

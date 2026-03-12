@@ -80,9 +80,9 @@ export async function proxy(req: NextRequest) {
     headers: await headers()
   })
 
-  console.log('\n\n------------------------------------------------------')
-  console.log(session)
-  console.log('------------------------------------------------------\n\n')
+  // console.log('\n\n------------------------------------------------------')
+  // console.log(session)
+  // console.log('------------------------------------------------------\n\n')
 
   const { nextUrl } = req
   const isLoggedIn = !!session

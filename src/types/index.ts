@@ -1,6 +1,7 @@
 // This is an example of a type that can be used as a client/server contract for API calls.
 
 import { auth } from '@/lib/auth'
+import { SUPPORTED_OAUTH_PROVIDERS } from '@/lib/constants'
 import { codes } from '@/utils'
 
 // export type Code =
@@ -53,19 +54,7 @@ export type InferredSession = typeof auth.$Infer.Session
 export type Session = InferredSession['session']
 export type User = InferredSession['user']
 
-//! This is currently incorrect!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// export type Old_User = {
-//   id: string
-//   firstName: string
-//   lastName: string
-//   email: string
-//   password?: string
-//   role: 'USER' | 'ADMIN' // Assuming Role is an enum with these values
-//   address?: Record<string, unknown> // JSON can be an object with any structure
-//   createdAt: string // Would be date, but transformed to string with Prisma $extends.
-//   updatedAt: string // Would be date, but transformed to string with Prisma $extends.
-//   posts: Post[]
-// }
+export type SupportedOAuthProvider = (typeof SUPPORTED_OAUTH_PROVIDERS)[number]
 
 export type Post = {
   id: string

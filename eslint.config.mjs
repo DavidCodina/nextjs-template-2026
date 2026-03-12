@@ -110,6 +110,8 @@ const eslintConfig = defineConfig([
       //! I turned this off because I don't see why they enforce this.
       'react/no-unescaped-entities': 'off', // Allow apostrophes in text...
 
+      'react/no-children-prop': 'off',
+
       //! I turned this off temporarily, but you should turn it back on.
       // This was introduced in React 19.1
       // It enforces component purity by flagging impure functions like Date.now(), Math.random(),

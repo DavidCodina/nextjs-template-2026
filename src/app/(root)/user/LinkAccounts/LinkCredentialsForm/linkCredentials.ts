@@ -15,9 +15,9 @@ type RequestData = {
 
 //! type Data = null
 type Data = any
-export type SetPasswordResponsePromise = ResponsePromise<Data>
-export type SetPassword = (requestData: RequestData) => SetPasswordResponsePromise
-export type SetPasswordResolvedResponse = Awaited<SetPasswordResponsePromise>
+export type LinkCredentialsResponsePromise = ResponsePromise<Data>
+export type LinkCredentials = (requestData: RequestData) => LinkCredentialsResponsePromise
+export type LinkCredentialsResolvedResponse = Awaited<LinkCredentialsResponsePromise>
 
 //# 2026  Switch to Zod validation...
 
@@ -25,7 +25,7 @@ export type SetPasswordResolvedResponse = Awaited<SetPasswordResponsePromise>
 
 ======================================================================== */
 
-export const setPassword: SetPassword = async ({ password, confirmPassword }) => {
+export const linkCredentials: LinkCredentials = async ({ password, confirmPassword }) => {
   try {
     // await sleep(1500)
     /* ======================
