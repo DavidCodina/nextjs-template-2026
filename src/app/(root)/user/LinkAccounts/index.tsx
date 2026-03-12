@@ -4,7 +4,7 @@ import * as React from 'react'
 import { authClient } from '@/lib/auth-client'
 import { LinkCredentialsForm } from './LinkCredentialsForm'
 import { LinkSocialButton } from './LinkSocialButton'
-import { UnLinkSocialButton } from './UnlinkSocialButton'
+import { UnlinkButton } from './UnlinkButton'
 import { SUPPORTED_OAUTH_PROVIDERS } from '@/lib/constants'
 // import { Prisma } from '@/generated/prisma/client'
 // ❌ type Account = Prisma.AccountGetPayload<{}>
@@ -96,7 +96,7 @@ export const LinkAccounts = () => {
         </p>
         <div className='flex flex-wrap gap-2'>
           {credentialAccount && (
-            <UnLinkSocialButton
+            <UnlinkButton
               onSuccess={() => {
                 authClient
                   .listAccounts()
@@ -121,7 +121,7 @@ export const LinkAccounts = () => {
           )}
           {linkedSocialAccounts.map((account) => {
             return (
-              <UnLinkSocialButton
+              <UnlinkButton
                 key={account.id}
                 onSuccess={() => {
                   authClient

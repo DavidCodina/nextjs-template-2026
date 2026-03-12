@@ -7,7 +7,7 @@ import { iconDictionary } from './iconDictionary'
 import { cn } from '@/utils'
 import type { SupportedOAuthProvider } from '@/types'
 
-type UnlinkSocialButtonProps = React.ComponentProps<'button'> & {
+type UnlinkButtonProps = React.ComponentProps<'button'> & {
   providerString: SupportedOAuthProvider | 'credential'
   onSuccess: () => void
 }
@@ -16,12 +16,7 @@ type UnlinkSocialButtonProps = React.ComponentProps<'button'> & {
 
 ======================================================================== */
 
-export const UnLinkSocialButton = ({
-  className = '',
-  onSuccess,
-  providerString,
-  ...otherProps
-}: UnlinkSocialButtonProps) => {
+export const UnlinkButton = ({ className = '', onSuccess, providerString, ...otherProps }: UnlinkButtonProps) => {
   const [loading, setLoading] = React.useState(false)
 
   /* ======================
