@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { toast } from 'sonner'
 import { authClient } from '@/lib/auth-client'
+import { iconDictionary } from './iconDictionary'
 import { cn } from '@/utils'
 import type { SupportedOAuthProvider } from '@/types'
 
@@ -71,9 +72,14 @@ export const LinkSocialButton = ({ className = '', providerString, ...otherProps
   return (
     <button
       {...otherProps}
-      children={loading ? 'Linking...' : providerString}
+      children={
+        <>
+          {iconDictionary[providerString as keyof typeof iconDictionary] || iconDictionary.default}
+          {loading ? 'Linking...' : providerString}
+        </>
+      }
       className={cn(
-        'bg-card cursor-pointer rounded border px-2 py-1 text-sm select-none',
+        'bg-card flex cursor-pointer items-center gap-2 rounded border px-2 py-1 text-sm select-none',
         className,
         loading && 'pointer-events-none'
       )}

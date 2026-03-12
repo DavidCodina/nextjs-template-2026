@@ -30,11 +30,13 @@ export const LinkCredentialsForm = ({ className = '', onSuccess }: SetPasswordFo
     e.preventDefault()
     if (!newPassword || typeof newPassword !== 'string') {
       toast.error('Email is required.')
+      setNewPassword('')
       return
     }
 
     if (newPassword.length < 8) {
       toast.error('Password must be at least 8 characters.')
+      setNewPassword('')
       return
     }
 
@@ -51,11 +53,7 @@ export const LinkCredentialsForm = ({ className = '', onSuccess }: SetPasswordFo
           toast.error(errorMessage, {
             // duration: Infinity
           })
-
-          return
-        }
-
-        if (success === true) {
+        } else if (success === true) {
           onSuccess?.()
           toast.success('Password set success.')
         }

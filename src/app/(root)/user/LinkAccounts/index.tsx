@@ -11,6 +11,8 @@ import { SUPPORTED_OAUTH_PROVIDERS } from '@/lib/constants'
 import type { Account } from 'better-auth/types'
 import type { SupportedOAuthProvider } from '@/types'
 
+//# Add icons to buttons.
+
 /* ========================================================================
 
 ======================================================================== */

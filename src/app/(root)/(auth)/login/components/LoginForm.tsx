@@ -129,6 +129,7 @@ const LoginForm = () => {
 
     if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
       toast.error('Email and password are required.')
+      setPassword('')
       return
     }
 
