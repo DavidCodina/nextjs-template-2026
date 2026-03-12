@@ -20,10 +20,10 @@ export const UnlinkButton = ({ className = '', onSuccess, providerString, ...oth
   const [loading, setLoading] = React.useState(false)
 
   /* ======================
-    handleUnlinkSocial()
+        handleUnlink()
   ====================== */
 
-  const handleUnlinkSocial = async (provider: SupportedOAuthProvider | 'credential') => {
+  const handleUnlink = async (provider: SupportedOAuthProvider | 'credential') => {
     setLoading(true)
 
     try {
@@ -81,7 +81,7 @@ export const UnlinkButton = ({ className = '', onSuccess, providerString, ...oth
         if (loading) {
           return
         }
-        handleUnlinkSocial(providerString)
+        handleUnlink(providerString)
       }}
       title={`Unlink from ${providerString}`}
     />
