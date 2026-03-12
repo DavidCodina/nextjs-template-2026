@@ -89,8 +89,8 @@ export const LinkAccounts = () => {
       <div>
         <h3 className='text-primary text-base font-medium'>Linked Accounts:</h3>
         <p className='mb-2 text-sm'>
-          Click on an item to <span className='text-destructive font-semibold italic'>unlink</span> the provider from
-          your account.
+          Click on an item to <span className='text-destructive font-semibold italic'>unlink</span> the authentication
+          provider.
         </p>
         <div className='flex flex-wrap gap-2'>
           {credentialAccount && (
@@ -162,8 +162,8 @@ export const LinkAccounts = () => {
       <div>
         <h3 className='text-primary text-base font-medium'>Unlinked Social Accounts:</h3>
         <p className='mb-2 text-sm'>
-          Click on an item to <span className='text-success font-semibold italic'>link</span> the provider to your
-          account.
+          Click on an item to <span className='text-success font-semibold italic'>link</span> the authentication
+          provider.
         </p>
         <div className='flex flex-wrap gap-2'>
           {unlinkedSocialAccounts.map((providerString, index) => {
@@ -192,7 +192,8 @@ export const LinkAccounts = () => {
         <h3 className='text-primary text-base font-medium'>Unlinked Credential Account:</h3>
 
         <p className='mb-2 text-sm'>
-          Setting a password allows you to sign in with email/password against the email already on record.
+          Add password to <span className='text-success font-semibold italic'>link</span> credential provider
+          (email/password) against the email already on record.
         </p>
         <LinkCredentialsForm
           onSuccess={() => {
