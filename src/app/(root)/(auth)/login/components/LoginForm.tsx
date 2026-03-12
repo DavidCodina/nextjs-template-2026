@@ -6,32 +6,12 @@ import Link from 'next/link'
 import { toast } from 'sonner'
 
 import { authClient } from '@/lib/auth-client'
+import { GitHub } from './GitHub'
+import { Google } from './Google'
+import { LinkedIn } from './LinkedIn'
+
 import { Button, Input } from '@/components'
 import { login } from '@/actions'
-
-const googleSVG = (
-  <svg width='32px' height='32px' viewBox='0 0 16 16' fill='none'>
-    <path
-      fill='#4285F4'
-      d='M14.9 8.161c0-.476-.039-.954-.121-1.422h-6.64v2.695h3.802a3.24 3.24 0 01-1.407 2.127v1.75h2.269c1.332-1.22 2.097-3.02 2.097-5.15z'
-    />
-    <path
-      fill='#34A853'
-      d='M8.14 15c1.898 0 3.499-.62 4.665-1.69l-2.268-1.749c-.631.427-1.446.669-2.395.669-1.836 0-3.393-1.232-3.952-2.888H1.85v1.803A7.044 7.044 0 008.14 15z'
-    />
-    <path fill='#FBBC04' d='M4.187 9.342a4.17 4.17 0 010-2.68V4.859H1.849a6.97 6.97 0 000 6.286l2.338-1.803z' />
-    <path
-      fill='#EA4335'
-      d='M8.14 3.77a3.837 3.837 0 012.7 1.05l2.01-1.999a6.786 6.786 0 00-4.71-1.82 7.042 7.042 0 00-6.29 3.858L4.186 6.66c.556-1.658 2.116-2.89 3.952-2.89z'
-    />
-  </svg>
-)
-
-const githubSVG = (
-  <svg width='32' height='32' fill='currentColor' viewBox='0 0 16 16'>
-    <path d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8' />
-  </svg>
-)
 
 /* ========================================================================
 
@@ -249,7 +229,7 @@ const LoginForm = () => {
       handleOAuthLogin()
   ====================== */
 
-  const handleOAuthLogin = async (provider: 'github' | 'google') => {
+  const handleOAuthLogin = async (provider: 'github' | 'google' | 'linkedin') => {
     try {
       const _data = await authClient.signIn.social({
         provider: provider,
@@ -284,7 +264,7 @@ const LoginForm = () => {
             }}
             type='button'
           >
-            {googleSVG}
+            <Google className='size-6' />
           </button>
 
           <button
@@ -294,7 +274,17 @@ const LoginForm = () => {
             }}
             type='button'
           >
-            {githubSVG}
+            <GitHub className='size-6' />
+          </button>
+
+          <button
+            className='cursor-pointer transition-transform hover:scale-125'
+            onClick={() => {
+              handleOAuthLogin('linkedin')
+            }}
+            type='button'
+          >
+            <LinkedIn className='size-6' />
           </button>
         </div>
 

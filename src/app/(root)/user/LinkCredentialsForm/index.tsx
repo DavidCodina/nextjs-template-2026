@@ -18,7 +18,10 @@ type SetPasswordFormProps = {
 //# Add confirm password field.
 //# Switch to using InputPassword component.
 
-export const SetPasswordForm = ({ className = '' }: SetPasswordFormProps) => {
+//# Rather than showing SetPasswordForm with disclaimer when a credentials account exists,
+//# we should just not show the form at all.
+
+export const LinkCredentialsForm = ({ className = '' }: SetPasswordFormProps) => {
   const [newPassword, setNewPassword] = React.useState('')
   const [pending, startTransition] = React.useTransition()
 
