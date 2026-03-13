@@ -205,15 +205,21 @@ export const auth = betterAuth({
     nextCookies()
   ],
 
-  ///////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
   //
   // https://better-auth.com/docs/concepts/hooks
   // The before hook can be used for blacklisting, server-side validation, etc.
+
   // ✅ Coding In Flow at 1:19:00 : https://www.youtube.com/watch?v=w5Emwt3nuV0
+  //
   // ✅  WDS at 1:41:00           : https://www.youtube.com/watch?v=WPiqNDapQrk
   //     He uses `after` to send a welcom email after the user signs up.
+  //
   // ✅ TomDoesTech at 8:15      : https://www.youtube.com/watch?v=RKqHrE0KyeE
   //    He also gives a welcome email example.
+  //
+  // - Syntax at 11:40, 13:15 uses a hook for part of password reset.
+  // - Syntax at 15:40,
   //
   ///////////////////////////////////////////////////////////////////////////
   hooks: {

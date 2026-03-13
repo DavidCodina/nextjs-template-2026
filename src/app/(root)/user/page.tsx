@@ -23,28 +23,12 @@ export const metadata: Metadata = {
 
 //# Update RegisterForm form to show/hide password/confirmPassword
 
-//# Read all concepts in the docs.
-
 /* ========================================================================
                                   PageUser
 ======================================================================== */
 
-//# Verification Flow:
-//#   - Coding In flow at 41:35.
-//#   - Coding In Flow at 52:45.
-//#   - Brett Westwood at 30:50.
-//#   - Review BETTER-AUTH -> Concepts -> Email
-//#   - Syntax at 4:15 (For local development he uses Ethereal email)
-//#     He uses NodeMailer, but I think Resend is more of popular.
-
 //# Password Reset Flow:
 //#   - Syntax at 6:50,
-
-//# Hooks
-//#  - Syntax at 11:40, 13:15 uses a hook for part of password reset.
-
-//# Database Hooks
-//#  - Syntax at 15:40,
 
 //# Admin Plugin
 //# This plugin looks super cool. Work on this as a bonus after just doing
@@ -59,8 +43,6 @@ export const metadata: Metadata = {
 
 //# Review signUpSchema in Coding in Flow tutorial at 17:38
 //# Could also review signInSchema. Check out source code directly.
-
-//# Update Zod
 
 //# Review documentation on Session Expiration
 //# Go to BETTER-AUTH Sessions tab:
@@ -87,7 +69,9 @@ export const metadata: Metadata = {
 //#   if (!user) unauthorized()
 //#   if (user.role !== 'ADMIN') forbidden()
 
-//# Review Coding In Flow youtube channel for more tutorials, and add to my list.
+//` Work on allowing user to update their profile/user page.
+//` Coding in Flow at 1:42:50 : https://www.youtube.com/watch?v=w5Emwt3nuV0
+//` https://github.com/codinginflow/better-auth-tutorial/blob/final-project/src/app/(main)/profile/page.tsx
 
 const PageUser = async () => {
   /* ======================
