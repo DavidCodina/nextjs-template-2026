@@ -162,6 +162,8 @@ export const register: Register = async ({ name, email, password, confirmPasswor
       }
     })
 
+    console.log('\n\nresult from auth.api.signUpEmail:', result)
+
     /* ======================
            Response
     ====================== */
@@ -175,7 +177,44 @@ export const register: Register = async ({ name, email, password, confirmPasswor
     }
   } catch (err) {
     if (err instanceof APIError) {
-      // ...
+      ///////////////////////////////////////////////////////////////////////////
+      //
+      // Checking here might be useful especially if you're using hooks
+      // in auth.ts to throw a custom error. For example:
+      //
+      //   hooks: {
+      //     before: createAuthMiddleware(async (ctx) => {
+      //       if (ctx.path === '/sign-up/email') {
+      //         if (ctx.body.email === 'david@example.com') {
+      //           throw new APIError('BAD_REQUEST', {
+      //             code: 'EMAIL_BLACKLISTED', // type string
+      //             message: 'This email is blacklisted.'
+      //           })
+      //         }
+      //       }
+      //     })
+      //   }
+      //
+      // Then return our own custom logic here based on that.
+      //
+      //   return {
+      //     code: 'EMAIL_BLACKLISTED',
+      //     data: null,
+      //     message: 'Server error.',
+      //     success: false
+      //   }
+      //
+      // That said, since we're already on the server, we actually don't need a hook
+      // for blacklisting, validation, etc.
+      //
+      ///////////////////////////////////////////////////////////////////////////
+
+      return {
+        code: 'EMAIL_BLACKLISTED',
+        data: null,
+        message: 'The email is blacklisted.',
+        success: false
+      }
     }
 
     if (err instanceof Error) {

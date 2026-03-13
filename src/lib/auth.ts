@@ -1,4 +1,6 @@
 import { betterAuth } from 'better-auth'
+import { APIError, createAuthMiddleware } from 'better-auth/api'
+
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import { prisma } from '@/lib/db/prisma'
 
@@ -18,6 +20,8 @@ import { prisma } from '@/lib/db/prisma'
 import { nextCookies } from 'better-auth/next-js'
 import { sendVerificationEmail } from './sendVerificationEmail'
 import { sendResetPasswordEmail } from './sendResetPasswordEmail'
+
+// type StatusCode = ConstructorParameters<typeof APIError>[0]
 
 /* ========================================================================
 
@@ -203,6 +207,85 @@ export const auth = betterAuth({
 
   // Todo: Review the TomDoesTech video at 8:15.
   //# He shows a hook that seems to work with Resend.
-  //# See also WDS at 1:41:00
-  hooks: {}
+
+  // https://better-auth.com/docs/concepts/hooks
+  // The before hook can be used for blacklisting, server-side validation, etc.
+  // ✅ Coding In Flow at 1:19:00 : https://www.youtube.com/watch?v=w5Emwt3nuV0
+  // ✅  WDS at 1:41:00
+
+  hooks: {
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    // Path for email registration: '/sign-up/email',
+    // Path for email login Path:   '/sign-in/email'
+    // Path for sign out:           '/sign-out'
+    // Path social sign in:         '/sign-in/social'
+    // Check body.provider for 'google', 'github', etc.
+    //
+    ///////////////////////////////////////////////////////////////////////////
+    before: createAuthMiddleware(
+      // https://better-auth.com/docs/concepts/hooks#ctx
+      async (ctx) => {
+        // console.log('\n\n--------------------------------------------------------\n\n:', {
+        //   path: ctx.path,
+        //   body: ctx.body
+        //   // context: ctx.context
+        // })
+
+        ///////////////////////////////////////////////////////////////////////////
+        //
+        // Returning nothing (or just return) → the hook is observation-only, and the request continues as normal.
+        // If you want to modify the return, then return { context: { ... } } as follows:
+        //
+        // if (ctx.path === '/sign-up/email') {
+        //   return {
+        //     context: {
+        //       ...ctx,
+        //       body: {
+        //         ...ctx.body,
+        //         name: 'John Doe'
+        //       }
+        //     }
+        //   }
+        // }
+        //
+        ///////////////////////////////////////////////////////////////////////////
+
+        if (ctx.path === '/sign-up/email') {
+          if (ctx.body.email === 'david@example.com') {
+            ///////////////////////////////////////////////////////////////////////////
+            //
+            // https://better-auth.com/docs/concepts/hooks#json-responses
+            // Using ctx.json() doesn't quite work how you may expext.
+            //
+            //   return ctx.json(
+            //     { code: 'BLACKLISTED_EMAIL', data: null,  message: 'This email is blacklisted.', success: false }
+            //   )
+            //
+            // If you use this on client:
+            //
+            //  const { data, error } = await authClient.signUp.email( ... )
+            //
+            // Then the return object will be a serialized string on the data property.
+            // Conversely, when you use this on the server:
+            //
+            //    const result = await auth.api.signUpEmail( ... )
+            //
+            // The result will be the expected object - instead of { token, user }
+            // While this approach works well enough for simple use cases, it still
+            // doesn't allow you to send back more complex objects without things
+            // getting a little hacky. Thus, it's not greate for itemized form errors, etc.
+            // However, in most cases, we don't want that anyways.
+            //
+            ///////////////////////////////////////////////////////////////////////////
+
+            throw new APIError('BAD_REQUEST', {
+              code: 'EMAIL_BLACKLISTED',
+              message: 'This email is blacklisted.'
+            })
+          }
+        }
+      }
+    )
+  }
 })

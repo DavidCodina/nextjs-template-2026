@@ -5,13 +5,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import { Button, Input } from '@/components'
-//# import { authClient } from '@/lib/auth-client'
+// import { authClient } from '@/lib/auth-client'
 
-// Here we're using a server action, which works in this specific case because
-// we're not logging the user in automatically. However, if we were doing that
-// then the UI would likely not update on the client. For this reason, it's
-//#  best to instead use: authClient.signUp()
-//# The Basic Usage docs provide an example with onRequest, onSuccess, onError.
 import { register } from '@/actions'
 
 // import * as z from "zod";
@@ -57,21 +52,29 @@ export const RegisterForm = () => {
 
     startRegistrationTransition(async () => {
       try {
-        //# Switch to client-side signUp.
-        //# WDS does this at 28:00
-        //# However, the thing I don't like about this is that there's
-        //# no way to do additional server-side validation.
-        //# Check online/AI to see if there's additional configuration options.
-        //# Otherwise, it may actually be better to stick with the server action.
-
-        // const { data, error } = await authClient.signUp.email({
-        //   name: fullName,
-        //   email,
-        //   password,
-        //   // Coding In Flow at 19:40
-        //   // On the other hand, the callbackURL is important for email verification.
-        //   callbackURL: '/email-verified'
-        // })
+        ///////////////////////////////////////////////////////////////////////////
+        //
+        // One could also use authClient.signUp.email().
+        //
+        //   const { data, error } = await authClient.signUp.email({
+        //     name: name,
+        //     email,
+        //     password
+        //     callbackURL: '/login?verified=true'
+        //   })
+        //
+        // However, in this case, it's easier to use a server action + auth.api.signUpEmail()
+        // so we can perform server-side validation. One could use authClient.signUp.email()
+        // in conjunction with a before hook, but I prefer this approach - despite it making
+        // a server call from the server.
+        //
+        // ⚠️ Here we're using a server action, which works in this specific case because
+        // we're not logging the user in automatically. However, if we were doing that
+        // then the UI would likely not update on the client.
+        //
+        // Ultimately, which approach you take depends on your use case.
+        //
+        ///////////////////////////////////////////////////////////////////////////
 
         const res = await register({
           name,
@@ -79,6 +82,33 @@ export const RegisterForm = () => {
           password,
           confirmPassword
         })
+
+        if (res.success === true) {
+          // toast.success('Registration success! Confirmation email sent.')
+          toast.success('Registration success!')
+          // Because we're using requireEmailVerification: true, we can instead
+          // use the callbackURL in the Better Auth signUp function. It won't redirect
+          // until AFTER the email is verified. Actually, the redirect will open in a
+          // new tab, rather than from the current application tab.
+
+          router.push('/login')
+
+          return
+        }
+
+        if (res.code === 'EMAIL_BLACKLISTED') {
+          toast.error('This email is blacklisted.', {
+            // duration: Infinity
+          })
+          return
+        }
+
+        toast.error(
+          "Unable to register. Ensure you're using a valid email/password and not already registered through a social provider.",
+          {
+            duration: Infinity
+          }
+        )
 
         ///////////////////////////////////////////////////////////////////////////
         //
@@ -92,25 +122,8 @@ export const RegisterForm = () => {
         // to logging in for the first time.
         //
         ///////////////////////////////////////////////////////////////////////////
-
-        if (res.success === true) {
-          // toast.success('Registration success! Confirmation email sent.')
-          toast.success('Registration success!')
-          // Because we're using requireEmailVerification: true, we can instead
-          // use the callbackURL in the Better Auth signUp function. It won't redirect
-          // until AFTER the email is verified. Actually, the redirect will open in a
-          // new tab, rather than from the current application tab.
-
-          router.push('/login')
-        } else {
-          toast.error(
-            "Unable to register. Ensure you're using a valid email/password and not already registered through a social provider.",
-            {
-              duration: Infinity
-            }
-          )
-        }
       } catch (_err) {
+        console.log(_err)
         toast.error(
           "Unable to register. Ensure you're using a valid email/password and not already registered through a social provider.",
           {
