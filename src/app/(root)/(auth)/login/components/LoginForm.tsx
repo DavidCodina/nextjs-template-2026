@@ -12,6 +12,7 @@ import { LinkedIn } from './LinkedIn'
 
 import { Button, Input } from '@/components'
 import { login } from '@/actions'
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 
 /* ========================================================================
 
@@ -21,6 +22,7 @@ const LoginForm = () => {
   const router = useRouter()
   // ⚠️ When implementing useSearchParams(), it's generally recommended to wrap in Suspense.
   const searchParams = useSearchParams()
+  const callbackUrl = searchParams?.get('callbackUrl') //* New...
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -209,13 +211,7 @@ const LoginForm = () => {
 
         toast.success('Login success.')
 
-        // console.log('\ndata from authClient.signIn.email():')
-        // console.log(data)
-
-        //# Currently there is no redirect. This used to happen by default
-        //# By virtue of the proxy.ts, but that may not be the best practice.
-        //^ 2026 actually, double-check what happens when logging in when this is commented out.
-        router.replace('/user')
+        router.replace(callbackUrl ? callbackUrl : DEFAULT_LOGIN_REDIRECT)
       } catch (_err) {
         // console.log('\nError from authClient.signIn.email()')
         // console.log(err)

@@ -17,7 +17,18 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    remotePatterns: [{ hostname: 'http.dog' }],
+    // Allow images from google, github, linkedin, etc. for auth providers.
+    // Needs LinkeIn still...
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com'
+      }
+    ],
     domains: [
       // 'upload.wikimedia.org',
       // 'images.pexels.com',

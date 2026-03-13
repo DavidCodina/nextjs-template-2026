@@ -205,14 +205,17 @@ export const auth = betterAuth({
     nextCookies()
   ],
 
-  // Todo: Review the TomDoesTech video at 8:15.
-  //# He shows a hook that seems to work with Resend.
-
+  ///////////////////////////////////////////////////////////////////////////
+  //
   // https://better-auth.com/docs/concepts/hooks
   // The before hook can be used for blacklisting, server-side validation, etc.
   // ✅ Coding In Flow at 1:19:00 : https://www.youtube.com/watch?v=w5Emwt3nuV0
-  // ✅  WDS at 1:41:00
-
+  // ✅  WDS at 1:41:00           : https://www.youtube.com/watch?v=WPiqNDapQrk
+  //     He uses `after` to send a welcom email after the user signs up.
+  // ✅ TomDoesTech at 8:15      : https://www.youtube.com/watch?v=RKqHrE0KyeE
+  //    He also gives a welcome email example.
+  //
+  ///////////////////////////////////////////////////////////////////////////
   hooks: {
     ///////////////////////////////////////////////////////////////////////////
     //
@@ -226,9 +229,11 @@ export const auth = betterAuth({
     before: createAuthMiddleware(
       // https://better-auth.com/docs/concepts/hooks#ctx
       async (ctx) => {
-        // console.log('\n\n--------------------------------------------------------\n\n:', {
+        // console.log({
         //   path: ctx.path,
-        //   body: ctx.body
+        //   body: ctx.body,
+        //   session: ctx.context.session,
+        //   newSession: ctx.context.newSession
         //   // context: ctx.context
         // })
 
@@ -252,7 +257,7 @@ export const auth = betterAuth({
         ///////////////////////////////////////////////////////////////////////////
 
         if (ctx.path === '/sign-up/email') {
-          if (ctx.body.email === 'david@example.com') {
+          if (ctx.body.email === 'blacklisted@example.com') {
             ///////////////////////////////////////////////////////////////////////////
             //
             // https://better-auth.com/docs/concepts/hooks#json-responses

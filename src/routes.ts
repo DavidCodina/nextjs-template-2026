@@ -41,7 +41,7 @@
 
 export const publicRoutes = [
   '/',
-  '/about',
+  // '/about',
   '/test',
   '/caching',
   '/caching-2',
@@ -54,7 +54,7 @@ export const publicRoutes = [
   // already logged in (i.e., authenticated) then they would be redirected to
   // DEFAULT_LOGIN_REDIRECT. Why? Because that's how middleware.ts is set up.
   // Consequently, we actually want '/auth/new-verification' to be in publicRoutes.
-  '/new-verification'
+  '/new-verification' //! I don't think I need this...
 
   // Add public API routes here also, but the preferred approach is to put all public routes in /api/public.
 ]
