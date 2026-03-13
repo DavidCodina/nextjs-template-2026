@@ -143,7 +143,7 @@ export const register: Register = async ({ name, email, password, confirmPasswor
     //
     ///////////////////////////////////////////////////////////////////////////
 
-    const result = await auth.api.signUpEmail({
+    const _result = await auth.api.signUpEmail({
       body: {
         email,
         // On the server side, Better Auth automatically hashes the password before
@@ -156,13 +156,10 @@ export const register: Register = async ({ name, email, password, confirmPasswor
         // email verification, it's preferable to programmatically navigate to the login page
         // on success.
         callbackURL: '/login?verified=true'
-        // callbackURL: '/login'
         // image?: string | undefined;
         // rememberMe?: boolean | undefined;
       }
     })
-
-    console.log('\n\nresult from auth.api.signUpEmail:', result)
 
     /* ======================
            Response
@@ -170,9 +167,8 @@ export const register: Register = async ({ name, email, password, confirmPasswor
 
     return {
       code: codes.CREATED,
-      data: result, //! DC 2026 : This was null. I added it for now...
-      errors: null,
-      message: 'Registration success.', //# message: 'Confirmation email sent.',
+      data: null, // The client doesn't need { token, user }
+      message: 'Registration success. Verification email sent.',
       success: true
     }
   } catch (err) {
@@ -195,17 +191,8 @@ export const register: Register = async ({ name, email, password, confirmPasswor
       //     })
       //   }
       //
-      // Then return our own custom logic here based on that.
-      //
-      //   return {
-      //     code: 'EMAIL_BLACKLISTED',
-      //     data: null,
-      //     message: 'Server error.',
-      //     success: false
-      //   }
-      //
-      // That said, since we're already on the server, we actually don't need a hook
-      // for blacklisting, validation, etc.
+      // Then return our own custom logic here based on that. That said, since we're
+      // already on the server, we actually don't need a hook for blacklisting, validation, etc.
       //
       ///////////////////////////////////////////////////////////////////////////
 
