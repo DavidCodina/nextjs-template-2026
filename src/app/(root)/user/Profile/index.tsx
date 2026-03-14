@@ -12,6 +12,8 @@ import { UpdateEmailForm } from './UpdateEmailForm'
 //# a single form and a single update handler that then makes multiple API calls
 //# See WDS at 2:03:45 : https://www.youtube.com/watch?v=WPiqNDapQrk
 
+//# To what extent does Better Auth support cross-tab auth?
+
 /* ========================================================================
 
 ======================================================================== */
