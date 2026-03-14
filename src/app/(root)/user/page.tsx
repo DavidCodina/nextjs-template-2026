@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
-import { /* Authenticated, */ Page, PageContainer, Title } from '@/components'
 
+import { /* Authenticated, */ Page, PageContainer, Title } from '@/components'
+import { DynamicProfile } from './Profile'
+
+// import { DynamicProfile } from './Profile/DynamicProfile'
 // import { ServerSession } from './ServerSession'
 // import { ClientSession } from './ClientSession'
-import { LinkAccounts } from './LinkAccounts'
+// import { LinkAccounts } from './LinkAccounts'
 
 export const metadata: Metadata = {
   title: {
@@ -72,6 +75,7 @@ export const metadata: Metadata = {
 //` Work on allowing user to update their profile/user page.
 //` Coding in Flow at 1:42:50 : https://www.youtube.com/watch?v=w5Emwt3nuV0
 //` https://github.com/codinginflow/better-auth-tutorial/blob/final-project/src/app/(main)/profile/page.tsx
+//` https://github.com/codinginflow/better-auth-tutorial/blob/final-project/src/app/(main)/profile/profile-details-form.tsx
 
 const PageUser = async () => {
   /* ======================
@@ -92,7 +96,9 @@ const PageUser = async () => {
           User
         </Title>
 
-        <LinkAccounts />
+        <DynamicProfile />
+
+        {/* <LinkAccounts /> */}
 
         {/* <ServerSession /> */}
         {/* <Suspense><ClientSession /></Suspense> */}

@@ -28,6 +28,10 @@ import { auth } from '@/lib/auth'
 ///////////////////////////////////////////////////////////////////////////
 
 //# Test this by calling it twice in ServerSession.tsx, within a Promise.all()
+
+/** A helper function built on top of Better Auth's auth.api.getSession().
+ * It returns session or null, and uses React cache to deduplicate the request.
+ */
 export const getServerSession = cache(async () => {
   try {
     // The pattern for getting a server session is demonstrated
