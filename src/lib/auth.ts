@@ -54,10 +54,13 @@ export const auth = betterAuth({
       ///////////////////////////////////////////////////////////////////////////
       //
       // https://better-auth.com/docs/concepts/users-accounts#change-email
+      // Coding in Flow at 1:47:30 : https://www.youtube.com/watch?v=w5Emwt3nuV0
+      // WDS at 2:02:45            : https://www.youtube.com/watch?v=WPiqNDapQrk
+      //
       // By default, when a user requests to change their email, a verification email is sent to
       // the new email address.
       //
-      //    const { data, error } = await authClient.changeEmail({ newEmail,callbackURL: '/' })
+      //    const { data, error } = await authClient.changeEmail({ newEmail, callbackURL: '/' })
       //
       // The email is only updated after the user verifies the new email. This occurs when
       // through the emailVerification implementation already set up in the registration flow.

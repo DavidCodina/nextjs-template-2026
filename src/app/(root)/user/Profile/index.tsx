@@ -7,6 +7,10 @@ import { UpdateUserForm } from './UpdateUserForm'
 import { UpdateEmailForm } from './UpdateEmailForm'
 
 //# Once the logic is complete for the various forms, work on updating their UI.
+//# Note that Coding In Flow breaks the different forms up by the associated method
+//# that is needed to perform the update. Conversely, WDS lumps them all together in
+//# a single form and a single update handler that then makes multiple API calls
+//# See WDS at 2:03:45 : https://www.youtube.com/watch?v=WPiqNDapQrk
 
 /* ========================================================================
 

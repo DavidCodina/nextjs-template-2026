@@ -22,7 +22,9 @@ const LoginForm = () => {
   const router = useRouter()
   // ⚠️ When implementing useSearchParams(), it's generally recommended to wrap in Suspense.
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams?.get('callbackUrl') //* New...
+
+  //# What happens if your callackUrl has search params of its own?
+  const callbackUrl = searchParams?.get('callbackUrl')
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -54,7 +56,7 @@ const LoginForm = () => {
 
     startEmailLoginTransition(async () => {
       try {
-        const { data, message, success } = await login({
+        const { message, success } = await login({
           email,
           password
         })
@@ -65,19 +67,13 @@ const LoginForm = () => {
             // duration: Infinity
           })
 
-          console.log('\nError from login() server action')
-          console.log(message)
           return
         }
 
         toast.success('Login success.')
-        console.log('\ndata from login() server action')
-        console.log(data)
 
         router.replace('/user')
-      } catch (err) {
-        console.log('\nError from login() server action')
-        console.log(err)
+      } catch (_err) {
         toast.error('Unable to log in.')
       } finally {
         setEmail('')

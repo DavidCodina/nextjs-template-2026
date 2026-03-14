@@ -23,7 +23,7 @@ type UpdateEmailFormProps = React.ComponentProps<'form'> & {
 
 ======================================================================== */
 // ✅ Coding in Flow at 1:47:30 : https://www.youtube.com/watch?v=w5Emwt3nuV0
-//  WDS at ...                 : https://www.youtube.com/watch?v=WPiqNDapQrk
+// ✅ WDS at 2:02:45            : https://www.youtube.com/watch?v=WPiqNDapQrk
 // https://better-auth.com/docs/concepts/users-accounts#change-email
 
 //# Here we 100% need to have a confirm password field.
@@ -46,9 +46,19 @@ export const UpdateEmailForm = ({ className = '', currentEmail = '', ...otherPro
 
   const handleUpdateEmail = async (e: any) => {
     e.preventDefault()
-    setPending(true)
+
+    // We could do this, but what if we wanted to update the image, but not the email?
+    // if (newEmail === currentEmail) {
+    //   toast.error("You can't use the same email address.")
+    //   return
+    // }
 
     //# Validation!!!
+    if (!newEmail) {
+      return
+    }
+
+    setPending(true)
 
     try {
       //# Test what happens if one tries to update an email to an existing email.

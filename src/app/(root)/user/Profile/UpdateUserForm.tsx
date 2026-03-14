@@ -49,7 +49,8 @@ export const UpdateUserForm = ({ className = '', currentName = '', ...otherProps
     try {
       ///////////////////////////////////////////////////////////////////////////
       //
-      // ⚠️ What we can actually update here seems pretty limited.
+      // ⚠️ What we can actually update here seems pretty limited. In theory, we can
+      // also update custom fields in the user record here.
       //
       // https://better-auth.com/docs/concepts/users-accounts#update-user-information
       // To update user information, you can use the updateUser function provided by the client.
