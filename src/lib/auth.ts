@@ -44,11 +44,46 @@ export const auth = betterAuth({
   // https://www.better-auth.com/docs/reference/options#user
   //# Configure for firstName, lastName
   user: {
+    // https://better-auth.com/docs/concepts/users-accounts#change-email
     // WDS at 2:02:30
-    // changeEmail: {
-    //   enabled: true,
-    //   // sendChangeEmailVerification: async ({ user, url, newEmail }) => { }
-    // },
+    // Coding In Flow at 1:49:30
+
+    changeEmail: {
+      enabled: true
+
+      ///////////////////////////////////////////////////////////////////////////
+      //
+      // https://better-auth.com/docs/concepts/users-accounts#change-email
+      // By default, when a user requests to change their email, a verification email is sent to
+      // the new email address.
+      //
+      //    const { data, error } = await authClient.changeEmail({ newEmail,callbackURL: '/' })
+      //
+      // The email is only updated after the user verifies the new email. This occurs when
+      // through the emailVerification implementation already set up in the registration flow.
+      //
+      // https://better-auth.com/docs/concepts/users-accounts#confirming-with-current-email
+      // Confirming with Current Email: For added security, you can require users to confirm the
+      // change via their current email before the verification email is sent to the new address.
+      // To do this, provide the sendChangeEmailConfirmation function. In Coding In Flow tutorial
+      // at 1:50:20, he says he doesn't really know what the best approach is. Currently, I'm
+      // using the less secure approach where the email verification goes to the NEW email. The
+      // problem with the more secure approach of sending it to the old email
+      // (i.e. sendChangeEmailConfirmation) is that in many cases, a user may be trying to change
+      // their email on this app because they no longer have access to their old email account.
+      //
+      ///////////////////////////////////////////////////////////////////////////
+
+      // sendChangeEmailConfirmation: async (parameter, _request) => {
+      //   const { user, newEmail, url /* , token */ } = parameter
+      //   // https://better-auth.com/docs/concepts/users-accounts#change-email
+      //   // ⚠️ Avoid awaiting the email sending to prevent timing attacks.
+      //   // On serverless platforms, use waitUntil or similar to ensure the email is sent.
+      //
+      //   // Send the email to the new email address...
+      // }
+    },
+
     additionalFields: {
       ///////////////////////////////////////////////////////////////////////////
       //
@@ -166,9 +201,10 @@ export const auth = betterAuth({
     sendVerificationEmail: async (parameter, _request) => {
       const { user, url, token: _token } = parameter
 
-      // Should we wrap in try/catch? It wouldn't matter since sendVerificationEmail()
-      // itself is wrapped in try/catch. But what happens if it fails? How do we retry?
-      await sendVerificationEmail({
+      // https://better-auth.com/docs/authentication/email-password#email-verification
+      // ⚠️ Avoid awaiting the email sending to prevent timing attacks.
+      // On serverless platforms, use waitUntil or similar to ensure the email is sent.
+      sendVerificationEmail({
         email: user.email,
         name: user.name,
         url

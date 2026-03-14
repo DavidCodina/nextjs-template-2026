@@ -62,6 +62,6 @@ export const sendVerificationEmail = async ({ email: _email, name, url }: SendVe
       react: <VerifyEmailTemplate name={name} url={url} />
     })
   } catch (_err) {
-    // console.log('\n\nError sending verification email.', _err)
+    console.log('\n\nError sending verification email.', _err)
   }
 }

@@ -72,11 +72,6 @@ export const metadata: Metadata = {
 //#   if (!user) unauthorized()
 //#   if (user.role !== 'ADMIN') forbidden()
 
-//` Work on allowing user to update their profile/user page.
-//` Coding in Flow at 1:42:50 : https://www.youtube.com/watch?v=w5Emwt3nuV0
-//` https://github.com/codinginflow/better-auth-tutorial/blob/final-project/src/app/(main)/profile/page.tsx
-//` https://github.com/codinginflow/better-auth-tutorial/blob/final-project/src/app/(main)/profile/profile-details-form.tsx
-
 const PageUser = async () => {
   /* ======================
           return

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { PropsWithChildren, useEffect, useTransition, useState, useCallback } from 'react'
+import { PropsWithChildren, useEffect, useTransition, useState, useCallback } from 'react'
 import type { Route } from 'next'
 import {
   createContext,
@@ -9,6 +9,9 @@ import {
 } from 'use-context-selector'
 
 import { useRouter } from 'next/navigation'
+
+import { authClient } from '@/lib/auth-client' //* New...
+import { useWindowFocus } from '@/hooks' //* New...
 
 export interface AppContextValue {
   test: string
@@ -43,6 +46,20 @@ export interface AppContextValue {
 export const AppContext = createContext({} as AppContextValue)
 
 export const AppProvider = ({ children }: PropsWithChildren) => {
+  /* ======================
+  Logic To Update Client Session on Window Focus
+  ====================== */
+  // This is especially important after user's update their email address, etc.
+
+  const { refetch } = authClient.useSession()
+  const windowFocused = useWindowFocus()
+
+  useEffect(() => {
+    if (windowFocused) {
+      refetch()
+    }
+  }, [refetch, windowFocused])
+
   /* ======================
   Logic For CurrentPageLoader
   ====================== */

@@ -7,8 +7,7 @@ import { toast } from 'sonner'
 // import { z } from 'zod'
 
 import { Button, Input } from '@/components'
-import { cn, sleep } from '@/utils'
-import type { User } from 'better-auth/types'
+import { cn } from '@/utils'
 
 // const updateProfileSchema = z.object({
 //   name: z.string().trim().min(1, { message: 'Name is required' }),
@@ -18,7 +17,7 @@ import type { User } from 'better-auth/types'
 // type UpdateProfileValues = z.infer<typeof updateProfileSchema>
 
 type UpdateUserFormProps = React.ComponentProps<'form'> & {
-  user: User | null
+  currentName: string
 }
 
 /* ========================================================================
@@ -27,10 +26,10 @@ type UpdateUserFormProps = React.ComponentProps<'form'> & {
 // Coding in Flow at 1:42:30 : https://www.youtube.com/watch?v=w5Emwt3nuV0
 // https://github.com/codinginflow/better-auth-tutorial/blob/final-project/src/app/(main)/profile/profile-details-form.tsx
 
-export const UpdateUserForm = ({ className = '', user, ...otherProps }: UpdateUserFormProps) => {
+export const UpdateUserForm = ({ className = '', currentName = '', ...otherProps }: UpdateUserFormProps) => {
   const [name, setName] = React.useState(() => {
-    if (user && user.name && typeof user.name === 'string') {
-      return user.name
+    if (currentName && typeof currentName === 'string') {
+      return currentName
     }
     return ''
   })
@@ -48,7 +47,6 @@ export const UpdateUserForm = ({ className = '', user, ...otherProps }: UpdateUs
     //# Validation!!!
 
     try {
-      await sleep(1500)
       ///////////////////////////////////////////////////////////////////////////
       //
       // ⚠️ What we can actually update here seems pretty limited.
@@ -58,7 +56,7 @@ export const UpdateUserForm = ({ className = '', user, ...otherProps }: UpdateUs
       // The updateUser function takes an object with the following properties: { name, image }
       //
       // See Coding In Flow at 1:44:30 for image implementation. He implements an image preview.
-      // However, all we really need is a string URL. Currently, I haven't focused much on images.
+      // However, all we really need is a string URL. Currently, I haven't focused much on image s.
       //
       ///////////////////////////////////////////////////////////////////////////
       const { data, error } = await authClient.updateUser({
@@ -81,7 +79,7 @@ export const UpdateUserForm = ({ className = '', user, ...otherProps }: UpdateUs
         // and not getServerSession(). Note: calling authClient.updateUser() seems to trigger
         // a refresh of the authClient.useSession() component that invokes it.
         //
-        //  If the user was originally derived from a server session, then it might make sense
+        // If the user was originally derived from a server session, then it might make sense
         // to call router.refresh() here. That said, router.refresh() would retrigger all
         // API calls in page.tsx and nested server components. As such, it's not very precise,
         // and could lead to poor UX.
@@ -101,14 +99,15 @@ export const UpdateUserForm = ({ className = '', user, ...otherProps }: UpdateUs
   }
 
   /* ======================
-          useEffect()
+        useEffect()
   ====================== */
 
   React.useEffect(() => {
-    if (user && user.name && typeof user.name === 'string') {
-      setName(user.name)
+    //! Don't fire on mount!
+    if (currentName && typeof currentName === 'string') {
+      setName(currentName)
     }
-  }, [user])
+  }, [currentName])
 
   /* ======================
           return

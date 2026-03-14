@@ -1,7 +1,12 @@
 'use client'
+
 import dynamic from 'next/dynamic'
+
 import { authClient } from '@/lib/auth-client'
 import { UpdateUserForm } from './UpdateUserForm'
+import { UpdateEmailForm } from './UpdateEmailForm'
+
+//# Once the logic is complete for the various forms, work on updating their UI.
 
 /* ========================================================================
 
@@ -11,15 +16,11 @@ import { UpdateUserForm } from './UpdateUserForm'
 export const Profile = () => {
   ///////////////////////////////////////////////////////////////////////////
   //
-  // Generally, prefer server components with getServerSession(). However, this Next.js
-  // app is using cacheComponents:true, which prohibits render blocking and makes getting
-  // server sessions a worse user experience. On the other hand, client sessions are generally
-  // immediate because of the nanostore.
-  //
   // ⚠️ Gotcha: Hydration mismatches can occur on manual browser refresh when implementing authClient.useSession()
-  // https://github.com/better-auth/better-auth/pull/2776
-  // https://github.com/better-auth/better-auth/issues/2462
-  // https://github.com/better-auth/better-auth/issues/960
+  //
+  //   https://github.com/better-auth/better-auth/pull/2776
+  //   https://github.com/better-auth/better-auth/issues/2462
+  //   https://github.com/better-auth/better-auth/issues/960
   //
   // Despite the above issues being closed, there's still an issue such that isPending is always
   // true on the server, but false on the client. It's necessarily false on the client because
@@ -43,17 +44,51 @@ export const Profile = () => {
   //
   //
   // Solution 3: Prefer fetching session data on the server and passing it to the client.
+  // Generally, prefer server components with getServerSession(). However, this Next.js
+  // app is using cacheComponents:true, which prohibits render blocking and makes getting
+  // server sessions a worse user experience. On the other hand, client sessions are generally
+  // immediate because of the nanostore.
   //
   // Solution 4: Using dynamic() :
   //
   //   import dynamic from 'next/dynamic'
   //   export const DynamicProfile = dynamic(() => import('./').then((module) => module.Profile), { ssr: false })
   //
+  /////////////////////////
+  //
+  // Refreshing authClient.useSession()
+  //
+  // By default, authClient.useSession() is stored in the nanostore on app mount.
+  // It seems to update itself when one calls authClient.updateUser( ... ) in UpdateUserForm.
+  //
+  // However, it DOES NOT automatically refresh itself when calling authClient.changeEmail( ... )
+  // from within UpdateEmailForm. Why not? In the latter case, the app does not update the
+  // email until after the user has gone into their email account and clicked the verification link.
+  // At that point, the email redirects to the app in a new browser tab. This means that the original
+  // tab where the user initiated the email change from has essentially been abandoned and seems
+  // to have no mechanism to know if/when the user has successfully verified their email. Consequently,
+  // it will be stuck with the old session data. Solution: revalidate the client session whenever
+  // the window refocuses:
+  //
+  //   const windowFocused = useWindowFocus()
+  //   React.useEffect(() => {
+  //     if (windowFocused) { refetch() }
+  //   }, [refetch, windowFocused])
+  //
+  // Rather than doing it here, we can do it in AppContext.tsx -> AppProvider.
+  // That way, we know for sure it will get applied across the entire app, rather
+  // than hoping that the user will revisit the page where this component is located.
+  //
   ///////////////////////////////////////////////////////////////////////////
 
   const value = authClient.useSession()
-  const { data, error, isPending /*, isRefetching, refetch */ } = value
-  const user = data?.user || null
+  const { data, error, isPending /* refetch, isRefetching */ } = value
+  const currentName = data?.user?.name || ''
+  const currentEmail = data?.user?.email || ''
+
+  /* ======================
+
+  ====================== */
 
   /* ======================
       renderContent()
@@ -73,7 +108,12 @@ export const Profile = () => {
       return <div className='my-12 text-center text-4xl font-black text-red-500'>No Client Session.</div>
     }
 
-    return <UpdateUserForm user={user} />
+    return (
+      <>
+        <UpdateUserForm currentName={currentName} />
+        <UpdateEmailForm currentEmail={currentEmail} />
+      </>
+    )
   }
 
   /* ======================

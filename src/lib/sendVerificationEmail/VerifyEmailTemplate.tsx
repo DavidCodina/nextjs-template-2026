@@ -112,8 +112,8 @@ export const VerifyEmailTemplate = ({ name, url }: VerificationEmailTemplateProp
           <Heading style={heading}>Hi {name}!</Heading>
           <Section style={buttonContainer}></Section>
           <Text style={paragraph}>
-            Thank you for signing up! Please click the button below to verify your email address and complete your
-            registration.
+            Please click the button below to verify your email address and complete your initial registration or
+            subsequent email change.
           </Text>
           <Hr style={hr} />
 
