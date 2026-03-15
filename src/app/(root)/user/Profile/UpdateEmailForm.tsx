@@ -62,6 +62,9 @@ export const UpdateEmailForm = ({ className = '', currentEmail = '', ...otherPro
 
     try {
       //# Test what happens if one tries to update an email to an existing email.
+
+      // This works against OAuth or credential signups. Changing email
+      // for a user with an Oath account does not break the login flow.
       const { data, error } = await authClient.changeEmail({
         newEmail,
         callbackURL: '/user?email_updated=true'
