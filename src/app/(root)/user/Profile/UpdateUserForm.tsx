@@ -40,7 +40,7 @@ export const UpdateUserForm = ({ className = '', currentName = '', ...otherProps
 
   ====================== */
 
-  const handleUpdateUser = async (e: any) => {
+  const handleUpdateUser = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     setPending(true)
 
@@ -118,7 +118,7 @@ export const UpdateUserForm = ({ className = '', currentName = '', ...otherProps
     <form
       {...otherProps}
       onSubmit={(e) => e.preventDefault()}
-      className={cn('bg-card mx-auto mb-2 max-w-lg space-y-4 rounded-lg border p-4 shadow', className)}
+      className={cn('bg-card space-y-4 rounded-lg border p-4 shadow', className)}
       noValidate
     >
       <Input

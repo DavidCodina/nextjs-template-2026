@@ -26,7 +26,7 @@ type UpdateEmailFormProps = React.ComponentProps<'form'> & {
 // ✅ WDS at 2:02:45            : https://www.youtube.com/watch?v=WPiqNDapQrk
 // https://better-auth.com/docs/concepts/users-accounts#change-email
 
-//# Here we 100% need to have a confirm password field.
+//# Here we 100% need to have a confirm email field.
 //# Otherwise, there's an increased risk that the user will inadvertently
 //# update the email to the WRONG email and then get locked out.
 
@@ -44,7 +44,7 @@ export const UpdateEmailForm = ({ className = '', currentEmail = '', ...otherPro
 
   ====================== */
 
-  const handleUpdateEmail = async (e: any) => {
+  const handleUpdateEmail = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
 
     // We could do this, but what if we wanted to update the image, but not the email?
@@ -120,7 +120,7 @@ export const UpdateEmailForm = ({ className = '', currentEmail = '', ...otherPro
     <form
       {...otherProps}
       onSubmit={(e) => e.preventDefault()}
-      className={cn('bg-card mx-auto mb-2 max-w-lg space-y-4 rounded-lg border p-4 shadow', className)}
+      className={cn('bg-card space-y-4 rounded-lg border p-4 shadow', className)}
       noValidate
     >
       <Input

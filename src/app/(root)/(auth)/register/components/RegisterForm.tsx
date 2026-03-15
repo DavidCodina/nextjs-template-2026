@@ -34,6 +34,8 @@ export const RegisterForm = () => {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
 
+    //# Add better validation here...
+
     //   if (
     //     !firstName ||
     //     typeof firstName !== 'string' ||

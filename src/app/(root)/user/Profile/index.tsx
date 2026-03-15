@@ -5,14 +5,11 @@ import dynamic from 'next/dynamic'
 import { authClient } from '@/lib/auth-client'
 import { UpdateUserForm } from './UpdateUserForm'
 import { UpdateEmailForm } from './UpdateEmailForm'
+import { UpdatePasswordForm } from './UpdatePasswordForm'
+import { LogoutEverywhereButton } from './LogoutEverywhereButton'
 
-//# Once the logic is complete for the various forms, work on updating their UI.
-//# Note that Coding In Flow breaks the different forms up by the associated method
-//# that is needed to perform the update. Conversely, WDS lumps them all together in
-//# a single form and a single update handler that then makes multiple API calls
-//# See WDS at 2:03:45 : https://www.youtube.com/watch?v=WPiqNDapQrk
-
-//# To what extent does Better Auth support cross-tab auth?
+//# To what extent does Better Auth support cross-tab synchronization?
+//# Test it out in two separate tabs.
 
 /* ========================================================================
 
@@ -93,10 +90,6 @@ export const Profile = () => {
   const currentEmail = data?.user?.email || ''
 
   /* ======================
-
-  ====================== */
-
-  /* ======================
       renderContent()
   ====================== */
 
@@ -115,10 +108,19 @@ export const Profile = () => {
     }
 
     return (
-      <>
+      <div className='mx-auto max-w-lg space-y-6'>
         <UpdateUserForm currentName={currentName} />
         <UpdateEmailForm currentEmail={currentEmail} />
-      </>
+
+        {/* 
+        //# If a user has no 'credential' account, attempting to update the password will result in an error.
+        //# Rather than allowing the UpdatePasswordForm to be shown, it would be better to check
+        //# authClient.listAccounts() for a credential account (see LinkAccounts/index.tsx)
+        */}
+        <UpdatePasswordForm />
+
+        <LogoutEverywhereButton />
+      </div>
     )
   }
 

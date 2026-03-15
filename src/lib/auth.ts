@@ -111,21 +111,20 @@ export const auth = betterAuth({
   // If a session is revoked or expires, the cookie will be invalidated
 
   session: {
-    cookieCache: {
-      enabled: true,
-      maxAge: 2 * 60 // 1 minute
-      // This should proactively refresh the cache, but it's not working
-      // https://better-auth.com/docs/concepts/session-management#understanding-refreshcache
-      // https://github.com/better-auth/better-auth/issues/6009
-      // https://github.com/better-auth/better-auth/issues/7607
-      // refreshCache: true
-      // Also not working...
-
-      //^ WARN [Better Auth]: [better-auth] `session.cookieCache.refreshCache` is enabled while `database` or `secondaryStorage` is configured. `refreshCache` is meant for stateless (DB-less) setups. Disabling `refreshCache` — remove it from your config to silence this warning.
-      // refreshCache: {
-      //   updateAge: 30 // Refresh when 30 seconds remain before expiry
-      // }
-    }
+    // cookieCache: {
+    //   enabled: true,
+    //   maxAge: 2 * 60 // 1 minute
+    //   // This should proactively refresh the cache, but it's not working
+    //   // https://better-auth.com/docs/concepts/session-management#understanding-refreshcache
+    //   // https://github.com/better-auth/better-auth/issues/6009
+    //   // https://github.com/better-auth/better-auth/issues/7607
+    //   // refreshCache: true
+    //   // Also not working...
+    //   //^ WARN [Better Auth]: [better-auth] `session.cookieCache.refreshCache` is enabled while `database` or `secondaryStorage` is configured. `refreshCache` is meant for stateless (DB-less) setups. Disabling `refreshCache` — remove it from your config to silence this warning.
+    //   // refreshCache: {
+    //   //   updateAge: 30 // Refresh when 30 seconds remain before expiry
+    //   // }
+    // }
   },
 
   // Note: account linking is enabled by default in Better Auth, and OAuth providers like Google and GitHub are trusted by default.
