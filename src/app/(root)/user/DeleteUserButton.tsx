@@ -43,6 +43,8 @@ export const DeleteUserButton = ({ className = '', ...otherProps }: DeleteUserBu
       })
 
       if (error) {
+        // If you try to call authClient.deleteUser() when there's no authenticated user:
+        // { message: 'Unauthorized', code: 'UNAUTHORIZED', status: 401, statusText: 'UNAUTHORIZED' }
         toast.error('Unable to delete account.')
         return
       }
