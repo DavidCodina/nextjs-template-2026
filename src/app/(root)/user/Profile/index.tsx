@@ -6,7 +6,6 @@ import { authClient } from '@/lib/auth-client'
 import { UpdateUserForm } from './UpdateUserForm'
 import { UpdateEmailForm } from './UpdateEmailForm'
 import { UpdatePasswordForm } from './UpdatePasswordForm'
-import { LogoutEverywhereButton } from './LogoutEverywhereButton'
 
 //# To what extent does Better Auth support cross-tab synchronization?
 //# Test it out in two separate tabs.
@@ -85,6 +84,7 @@ export const Profile = () => {
   ///////////////////////////////////////////////////////////////////////////
 
   const value = authClient.useSession()
+
   const { data, error, isPending /* refetch, isRefetching */ } = value
   const currentName = data?.user?.name || ''
   const currentEmail = data?.user?.email || ''
@@ -108,7 +108,7 @@ export const Profile = () => {
     }
 
     return (
-      <div className='mx-auto max-w-lg space-y-6'>
+      <>
         <UpdateUserForm currentName={currentName} />
         <UpdateEmailForm currentEmail={currentEmail} />
 
@@ -118,9 +118,7 @@ export const Profile = () => {
         //# authClient.listAccounts() for a credential account (see LinkAccounts/index.tsx)
         */}
         <UpdatePasswordForm />
-
-        <LogoutEverywhereButton />
-      </div>
+      </>
     )
   }
 

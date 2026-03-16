@@ -22,6 +22,10 @@ export const ClientSession = () => {
   //   1. {data: null, error: null, isPending: true}
   //   2. {data: {…}, error: null, isPending: false}
   //
+  // If there's no sesssion then there's no error. You just get back:
+  //
+  //  { data: null, error: null, isPending: false, isRefetching: false, refetch: (queryParams)=>fn(queryParams) }
+  //
   ///////////////////////////////////////////////////////////////////////////
   const value = authClient.useSession()
   // Here data is the full session of session.session and session.user.
@@ -66,7 +70,7 @@ export const ClientSession = () => {
 
   const renderContent = () => {
     if (error) {
-      return <div className='my-12 text-center text-4xl font-black text-red-500'>An error occurred.</div>
+      return <div className='text-destructive my-12 text-center text-4xl font-black'>An error occurred.</div>
     }
 
     if (isPending) {
@@ -75,7 +79,7 @@ export const ClientSession = () => {
     }
 
     if (!data) {
-      return <div className='my-12 text-center text-4xl font-black text-red-500'>No Client Session.</div>
+      return <div className='text-destructive my-12 text-center text-4xl font-black'>No Client Session.</div>
     }
 
     return (

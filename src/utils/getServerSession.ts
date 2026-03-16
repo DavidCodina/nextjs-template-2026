@@ -37,6 +37,8 @@ export const getServerSession = cache(async () => {
     // The pattern for getting a server session is demonstrated
     // at better-auth.com/docs/basic-usage#server-side
     // session breaks down into session.session and session.user
+    // If there's no session, then auth.api.getSession will simply return null.
+    // However, I still wrap this in a try/catch just to be safe.
     const session = await auth.api.getSession({
       ///////////////////////////////////////////////////////////////////////////
       //
@@ -54,6 +56,7 @@ export const getServerSession = cache(async () => {
       ///////////////////////////////////////////////////////////////////////////
       headers: await headers()
     })
+
     return session
   } catch {
     return null

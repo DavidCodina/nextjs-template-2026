@@ -1,7 +1,12 @@
 import type { Metadata } from 'next'
 
 import { /* Authenticated, */ Page, PageContainer, Title } from '@/components'
+
 import { DynamicProfile } from './Profile'
+
+import { SessionManagement } from './SessionManagement'
+
+import { DeleteUserButton } from './DeleteUserButton'
 
 // import { DynamicProfile } from './Profile/DynamicProfile'
 // import { ServerSession } from './ServerSession'
@@ -91,7 +96,13 @@ const PageUser = async () => {
           User
         </Title>
 
-        <DynamicProfile />
+        <div className='mx-auto max-w-[800px] space-y-6'>
+          <DynamicProfile />
+
+          <SessionManagement />
+
+          <DeleteUserButton />
+        </div>
 
         {/* <LinkAccounts /> */}
 

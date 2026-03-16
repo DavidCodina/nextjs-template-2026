@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
   images: {
     // Allow images from google, github, linkedin, etc. for auth providers.
     // Needs LinkeIn still...
+
     remotePatterns: [
       {
         protocol: 'https',

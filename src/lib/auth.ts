@@ -44,10 +44,18 @@ export const auth = betterAuth({
   // https://www.better-auth.com/docs/reference/options#user
   //# Configure for firstName, lastName
   user: {
+    // https://better-auth.com/docs/concepts/users-accounts#delete-user
+    deleteUser: {
+      enabled: true
+
+      //# https://better-auth.com/docs/concepts/users-accounts#adding-verification-before-deletion
+      //# For added security, you’ll likely want to confirm the user’s intent before deleting their account.
+      // sendDeleteAccountVerification:
+    },
+
     // https://better-auth.com/docs/concepts/users-accounts#change-email
     // WDS at 2:02:30
     // Coding In Flow at 1:49:30
-
     changeEmail: {
       enabled: true
 

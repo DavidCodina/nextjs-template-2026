@@ -50,3 +50,19 @@ export const ServerSessionWithSuspense = async () => {
 }
 
 export { ServerSessionWithSuspense as ServerSession }
+
+// return (
+//   <div className='mx-auto mb-6 max-w-[800px]'>
+//     <h2 className='text-primary mb-1 text-4xl font-black'>Server Session</h2>
+//     <div className='bg-card rounded-lg border shadow'>
+//       {image && (
+//         <img
+//           alt=''
+//           src={session.user?.image as string}
+//           className='mx-auto mt-4 block w-full max-w-[150px] rounded-lg border shadow'
+//         />
+//       )}
+//       <pre className='overflow-scroll p-4'>{JSON.stringify(session.user, null, 2)}</pre>
+//     </div>
+//   </div>
+// )
