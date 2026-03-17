@@ -3,13 +3,10 @@ import { Page, PageContainer, UpdateTagButton } from '@/components'
 
 // import { ComponentDemos } from '@/components/ComponentDemos'
 
-//` Update eCommerce app with all auth related files, including proxy.ts. Parts of auth.ts, etc.
+//# Review caching
+// Todo: Test out caching behavior and invalidateTag behavior.
 
-//# The big "how to" is what the patterns are for potentially integrating cacheComponents with Better Auth.
-//# https://github.com/vercel/next.js/discussions/87123
-//# Ultimately, I don't think there's a good solution, and we should probably not use cacheComponents at all.
-//# That said, I'm still using them in this project since that's the direction Next.js is heading in.
-//#
+//` Update eCommerce app with all auth related files, including proxy.ts. Parts of auth.ts, etc.
 
 //# Review Better Auth
 //# - including custom components: SignedIn, SignedOut, SignIn, Authenticated, AdminOnly, getServerSession.
@@ -22,15 +19,6 @@ import { Page, PageContainer, UpdateTagButton } from '@/components'
 
 //# Also review my blog article here:
 //# https://www.linkedin.com/posts/david-codina-b7b015230_nextjs-proxyts-for-superficial-authentication-activity-7408243100751454208-n1p2
-
-//# Review caching
-
-//# Create a button in the /user page that allows the user to cancel their account.
-
-//# After reviewing caching, check AI to see if Better Auth has new patterns for
-//# integrating with cacheComponents.
-
-//# Deep Dive into Better Auth docs.
 
 //# When I deploy this to Vercel it's 7 hours ahead.
 //# How can I fix that?
@@ -61,8 +49,6 @@ import { Page, PageContainer, UpdateTagButton } from '@/components'
 // Todo: Review Calendar behavior and best practices/contracts when sending dates to server.
 
 // Todo: Build out RHF controlled form demo.
-
-// Todo: Test out caching behavior and invalidateTag behavior.
 
 // Todo: Change all /components components to PascalCase & update components/index.ts
 //# Watch out for Vercel Gotcha - name append 'X' temporarily.

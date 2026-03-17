@@ -2,6 +2,9 @@
 
 //! import { auth } from '@/auth'
 
+// Can be used to immediately redirect to a login page.
+// import { RedirectError, isRedirectError } from 'next/dist/client/components/redirect-error'
+
 type ProtectedActionData = {
   data: any
   message: string
