@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Page, PageContainer, Title } from '@/components'
 // import { PostList } from './PostList'
-import { UseCacheRemote } from './UseCacheRemote'
+// import { UseCacheRemote } from './UseCacheRemote'
 
 export const metadata: Metadata = {
   title: 'Caching',
@@ -56,9 +56,13 @@ const PageCaching = async () => {
           Caching
         </Title>
 
-        <UseCacheRemote />
-
         {/* <PostList /> */}
+
+        {/* <UseCacheRemote /> */}
+
+        {/* <ProtectedActionDemo /> */}
+
+        {/* <PrivateProtectedActionDemo /> */}
       </PageContainer>
     </Page>
   )

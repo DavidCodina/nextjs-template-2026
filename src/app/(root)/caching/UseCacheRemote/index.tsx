@@ -1,17 +1,19 @@
 import { cacheTag } from 'next/cache'
 import { ForcePPR } from '../ForcePPR'
+import { UpdateTagButton } from '@/components'
 
 const getTime = async () => {
   'use cache: remote'
   cacheTag('time')
 
-  // await sleep(2000)
   const time = new Date().toLocaleTimeString('en-US', {
     hour12: true,
     hour: 'numeric',
     minute: '2-digit',
     second: '2-digit'
   })
+
+  console.log(`\nGetting time: ${time}\n`)
 
   return time
 }
@@ -30,6 +32,7 @@ const getTime = async () => {
 ///////////////////////////////////////////////////////////////////////////
 //
 // ⚠️ Gotcha:
+// Next.js still is aggressive at build time when creating static pages.
 // The associated page.tsx is rendered as static at build time. ○  (Static)
 //
 //   ○ /caching
@@ -60,6 +63,9 @@ export const UseCacheRemote = async () => {
   return (
     <>
       <ForcePPR />
+      <UpdateTagButton className='mx-auto flex' shouldLog={true} tag='time' size='sm'>
+        Update Time
+      </UpdateTagButton>
       <div className='text-primary my-12 text-center text-4xl font-bold'>{time}</div>
     </>
   )

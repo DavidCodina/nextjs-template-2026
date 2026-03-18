@@ -3,9 +3,6 @@ import { Page, PageContainer, UpdateTagButton } from '@/components'
 
 // import { ComponentDemos } from '@/components/ComponentDemos'
 
-//# Review caching
-// Todo: Test out caching behavior and invalidateTag behavior.
-
 //` Update eCommerce app with all auth related files, including proxy.ts. Parts of auth.ts, etc.
 
 //# Review Better Auth

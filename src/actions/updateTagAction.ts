@@ -24,10 +24,11 @@ import { ResponsePromise } from '@/types'
 // LRU eviction when memory pressure requires it. So... There is a cleanup mechanism, but it's not
 // as simple as expired = deleted.
 //
+// Good to know: updateTag immediately expires the cached data for the specified tag.
+// The next request will wait to fetch fresh data rather than serving stale content from the cache,
+// ensuring users see their changes immediately.
 //
-// Behavior: When you trigger this action from UI, it will immediately update the
-// data on the server. You DO NOT first need to go to a page that uses the data to
-// trigger it. Moreover, if you're currently on a page with the data, it will refresh
+// If you're currently on a page with the data, it will refresh
 // it under the hood and then give you new data in real-time. However, the update will
 // not trigger the Suspense fallback a second time.
 //
