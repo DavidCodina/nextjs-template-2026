@@ -109,6 +109,10 @@ const Home = async () => {
           >
             Update Posts
           </UpdateTagButton>
+
+          <UpdateTagButton shouldLog={true} tag='time' size='sm'>
+            Update Time
+          </UpdateTagButton>
         </div>
 
         {/* <Snippet

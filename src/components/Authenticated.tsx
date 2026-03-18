@@ -59,6 +59,7 @@ const Authenticated = async ({ children }: AuthenticatedProps) => {
   // console.log('\nThe user is authenticated.\n')
 
   // This is a textbook example of the doughnut pattern.
+  // Tobi Mey: https://www.youtube.com/watch?v=chTyQNM8lzw
   return children
 }
 

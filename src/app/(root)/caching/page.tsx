@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Page, PageContainer, Title } from '@/components'
-import { PostList } from './PostList'
+// import { PostList } from './PostList'
+import { UseCacheRemote } from './UseCacheRemote'
 
 export const metadata: Metadata = {
   title: 'Caching',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 // https://www.youtube.com/watch?v=OHrtiIuCea0&t=4s
 // Next.js is moving in a direction such that they're trying to find a unified model with cache components.
 // whereby we will no longer conceputalize pages in terms of a static/dynamic split. Instead, you suspend
-// your dynamic content and everthing else gets statically rendered.
+// your dynamic content and everything else gets statically rendered.
 //
 //
 // ⚠️ Route segment config "dynamic" is not compatible with `nextConfig.cacheComponents`.
@@ -55,7 +56,9 @@ const PageCaching = async () => {
           Caching
         </Title>
 
-        <PostList />
+        <UseCacheRemote />
+
+        {/* <PostList /> */}
       </PageContainer>
     </Page>
   )

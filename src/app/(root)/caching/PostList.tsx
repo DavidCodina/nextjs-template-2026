@@ -17,7 +17,7 @@ import { getPosts } from '@/actions/cached.actions'
 // ⚠️ Gotcha:
 // The associated page.tsx is rendered as static at build time. ○  (Static)
 // If you're on the home page, and click the UpdateTagButton, then
-// navigate to the associate Posts page, then you will STILL see cached data
+// navigate to the associated Posts page, then you will STILL see cached data
 // from the router cache. Setting staleTimes to 0 for static pages will have
 // absolutely no effect on this:
 //
