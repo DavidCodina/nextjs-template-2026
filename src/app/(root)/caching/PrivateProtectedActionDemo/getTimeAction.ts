@@ -43,7 +43,8 @@ const getTime = async () => {
 // I'm not sure if that's the actual reason it's not working.
 // Note: Ali Alaa also experienced it not caching under any circumstances.
 // See 51:45 : https://www.youtube.com/watch?v=hfC-S5MosGQ
-// See also  : https://github.com/vercel/next.js/issues/85672
+//             https://github.com/vercel/next.js/issues/85672
+//             https://github.com/vercel/next.js/issues/87304
 //
 //^ As of Next.js version 16.1.6, it seems like 'use cache: private' is STILL broken!
 //
