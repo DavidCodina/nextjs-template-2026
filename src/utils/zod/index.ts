@@ -40,11 +40,7 @@ export const isZodIssues = (value: unknown): value is ZodIssues => {
     const issue = item as Record<string, unknown>
 
     // Required properties that every ZodIssue has
-    return (
-      typeof issue.code === 'string' &&
-      Array.isArray(issue.path) &&
-      typeof issue.message === 'string'
-    )
+    return typeof issue.code === 'string' && Array.isArray(issue.path) && typeof issue.message === 'string'
   })
 }
 

@@ -32,9 +32,7 @@ const requestData = {
 
 const validationResult = DataSchema.safeParse(requestData)
 
-let formErrors = validationResult.error
-  ? formatZodErrors(validationResult.error)
-  : {}
+let formErrors = validationResult.error ? formatZodErrors(validationResult.error) : {}
 
 ///////////////////////////////////////////////////////////////////////////
 //
