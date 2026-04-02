@@ -21,3 +21,5 @@ export * from './handleError'
 export * from './codes'
 export * from './randomTrue'
 export * from './getServerSession'
+
+export * from './isFileArray'

@@ -10,7 +10,7 @@ export const defaultToastOptions = {
   // to push off their left sides. However, the left-margin this creates is too much.
   // A better solution is to leverage the fact that the toast is already a flex container,
   // and instead make <div data-content> push both buttons to the right.
-  className: `[&_[data-content]]:mr-auto`,
+  className: `[&_[data-content]]:mr-auto [&_div[data-icon]]:pt-1`,
   ///////////////////////////////////////////////////////////////////////////
   //
   // <Sonner /> has a closeButton prop on it.
@@ -23,7 +23,13 @@ export const defaultToastOptions = {
   ///////////////////////////////////////////////////////////////////////////
   // closeButton: true,
   descriptionClassName: '',
-  style: {},
+  style: {
+    // Here we're doing it on the style prop for precedence. Otherwise, for Tailwind
+    // you'd need to do: items-start! Note that [&_div[data-icon]]:pt-1 is used specifically
+    // when alignItems:'start' is set here. The goals is to tweak the positioning slightly to
+    // make it align better with the text.
+    alignItems: 'start'
+  },
   cancelButtonStyle: {},
   actionButtonStyle: {},
   duration: 4000,
