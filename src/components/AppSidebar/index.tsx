@@ -200,7 +200,7 @@ export const AppSidebar = () => {
 
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip='Caching'>
-                <Link href='/caching' data-href='/caching' className='text-inherit' prefetch={false}>
+                <Link className='text-inherit' href='/caching' data-href='/caching' prefetch={false}>
                   <Box />
                   <span>Caching</span>
                 </Link>

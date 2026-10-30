@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { Page, PageContainer, Title } from '@/components'
-import { PostList } from './PostList'
+// import { PostList } from './PostList'
 // import { ProtectedActionDemo } from './ProtectedActionDemo'
 // import { UseCacheRemote } from './UseCacheRemote'
-
+import { PrivateComponentDemo } from './PrivateComponentDemo'
+// import { PrivateProtectedActionDemoFail } from './PrivateProtectedActionDemoFail'
 export const metadata: Metadata = {
   title: 'Caching',
   description: 'A Caching Demo'
@@ -29,7 +30,6 @@ export const metadata: Metadata = {
 // whereby we will no longer conceputalize pages in terms of a static/dynamic split. Instead, you suspend
 // your dynamic content and everything else gets statically rendered.
 //
-//
 // ⚠️ Route segment config "dynamic" is not compatible with `nextConfig.cacheComponents`.
 // When cacheComponents:true is enabled globally in next.config.ts, you cannot use
 // export const dynamic = 'force-dynamic' (or other dynamic route segment configs) in your pages.
@@ -38,6 +38,9 @@ export const metadata: Metadata = {
 // As soon as you turn that flag on, 'force-dynamic' is no longer allowed.
 //
 ///////////////////////////////////////////////////////////////////////////
+
+export const instant = false
+export const prefetch = 'partial'
 
 const PageCaching = async () => {
   /* ======================
@@ -57,13 +60,15 @@ const PageCaching = async () => {
           Caching
         </Title>
 
-        <PostList />
+        {/* <PostList /> */}
 
         {/* <ProtectedActionDemo /> */}
 
         {/* <UseCacheRemote /> */}
 
-        {/* <PrivateProtectedActionDemo /> */}
+        <PrivateComponentDemo />
+
+        {/* <PrivateProtectedActionDemoFail /> */}
       </PageContainer>
     </Page>
   )

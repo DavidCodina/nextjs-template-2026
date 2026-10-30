@@ -1,4 +1,5 @@
 import { Page, PageContainer, UpdateTagButton } from '@/components'
+import { PRIVATE_TIME_TAG } from '../caching/PrivateComponentDemo'
 
 // import { ComponentDemos } from '@/components/ComponentDemos'
 
@@ -100,11 +101,15 @@ const Home = async () => {
             tag='posts'
             size='sm'
           >
-            Update Posts
+            Purge Posts
           </UpdateTagButton>
 
           <UpdateTagButton shouldLog={true} tag='time' size='sm'>
-            Update Time
+            Purge Time
+          </UpdateTagButton>
+
+          <UpdateTagButton tag={PRIVATE_TIME_TAG} size='sm'>
+            Purge Private Time
           </UpdateTagButton>
         </div>
 

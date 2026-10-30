@@ -8,7 +8,7 @@
 import 'server-only'
 
 import {
-  // cacheLife, // https://nextjs.org/docs/app/api-reference/functions/cacheLife
+  cacheLife, // https://nextjs.org/docs/app/api-reference/functions/cacheLife
   cacheTag // https://nextjs.org/docs/app/api-reference/functions/cacheTag
 } from 'next/cache'
 import {
@@ -42,8 +42,16 @@ export const getPosts: GetPosts = async () => {
   'use cache' // AKA 'make static'
   cacheTag('posts')
 
+  // This will not behave reliably in dev mode.
+  // Run the build to test actual behavior.
+  cacheLife({
+    stale: 30,
+    revalidate: 60,
+    expire: 60
+  })
+
   try {
-    await sleep(2500)
+    await sleep(4000)
     // if (randomFail()) {
     //   throw new Error('The request randomly failed.')
     // }
