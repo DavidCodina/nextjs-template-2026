@@ -9,7 +9,7 @@ const getData = async () => {
     ///////////////////////////////////////////////////////////////////////////
     //
     // https://nextjs.org/docs/app/api-reference/functions/cacheLife#inline-cache-profiles
-    // The stale (i.e., staleTIme) dictates the behavior of the client router cache when
+    // The stale (i.e., staleTime) dictates the behavior of the client router cache when
     // navigating between pages with <Link> or router.push()?
     //
     // The stale parameter in your cacheLife
@@ -109,7 +109,7 @@ const RockOrSuck = async () => {
   const { data } = await getData()
 
   return (
-    <pre className='bg-card mx-auto mb-6 max-w-[800px] overflow-scroll rounded-lg border p-4 shadow'>
+    <pre className='bg-card mx-auto mb-6 max-w-200 overflow-scroll rounded-lg border p-4 shadow'>
       {JSON.stringify(data, null, 2)}
     </pre>
   )

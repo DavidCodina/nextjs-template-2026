@@ -1,5 +1,6 @@
-import { clsx, type ClassValue } from 'clsx'
+import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import type { ClassValue } from 'clsx'
 
 ///////////////////////////////////////////////////////////////////////////
 //
@@ -16,6 +17,15 @@ import { twMerge } from 'tailwind-merge'
 //       { 'text-orange-500': loading}
 //     )}
 //   >{loading ? 'Loading...' : 'Idle'}</h1>
+//
+// ⚠️ Note: There's actually a more modern version of this. See here:
+//   - https://github.com/shadcn-ui/cn
+//   - OrcDev: https://www.youtube.com/watch?v=0m9DjtsfLyE
+//
+// It boasts being 30x faster. Most of the logic for this NEW cn is found here:
+//   - https://github.com/shadcn-ui/cn/blob/main/packages/cn/src/engine.ts
+//
+// export  { cn } from 'cn'
 //
 ///////////////////////////////////////////////////////////////////////////
 

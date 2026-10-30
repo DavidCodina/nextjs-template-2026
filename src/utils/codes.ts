@@ -19,7 +19,17 @@ export const codes = {
   FORM_ERRORS: 'FORM_ERRORS',
 
   /** Use this as an opaque error code for all failed login attempts. */
-  INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
+  INVALID_CREDENTIALS: 'INVALID_CREDENTIALS', // ! Possibly remove.
+
+  // Previously I was using: INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
+  // However, it would be better to use "INVALID_EMAIL_OR_PASSWORD"
+  // because that's actually a listed BetterAuthErrorCode (see types directory).
+  // In any case, I prefer LOGIN_FAILED and REGISTRATION_FAILED.
+  LOGIN_FAILED: 'LOGIN_FAILED',
+
+  REGISTRATION_FAILED: 'REGISTRATION_FAILED',
+
+  VALIDATION_ERROR: 'VALIDATION_ERROR',
 
   /** Use this when authentication fails. */
   UNAUTHORIZED: 'UNAUTHORIZED',
@@ -36,5 +46,7 @@ export const codes = {
 
   EMAIL_UNVERIFIED: 'EMAIL_UNVERIFIED',
 
-  EMAIL_BLACKLISTED: 'EMAIL_BLACKLISTED'
+  EMAIL_BLACKLISTED: 'EMAIL_BLACKLISTED',
+
+  INVALID_PASSWORD: 'INVALID_PASSWORD'
 } as const

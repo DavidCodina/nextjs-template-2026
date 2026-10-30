@@ -3,7 +3,7 @@ import { Page, PageContainer, Title } from '@/components'
 // import { PostList } from './PostList'
 // import { ProtectedActionDemo } from './ProtectedActionDemo'
 // import { UseCacheRemote } from './UseCacheRemote'
-import { PrivateComponentDemo } from './PrivateComponentDemo'
+import { PrivateServerFunctionDemo } from './PrivateServerFunctionDemo'
 // import { PrivateProtectedActionDemoFail } from './PrivateProtectedActionDemoFail'
 export const metadata: Metadata = {
   title: 'Caching',
@@ -66,7 +66,7 @@ const PageCaching = async () => {
 
         {/* <UseCacheRemote /> */}
 
-        <PrivateComponentDemo />
+        <PrivateServerFunctionDemo />
 
         {/* <PrivateProtectedActionDemoFail /> */}
       </PageContainer>

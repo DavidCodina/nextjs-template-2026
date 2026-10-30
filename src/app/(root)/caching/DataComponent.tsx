@@ -76,7 +76,7 @@ const DataComponent = async () => {
           // rightSection={<RetryButton>Retry</RetryButton>}
           title={'Error'}
           variant={'destructive'}
-          className='mx-auto my-6 max-w-[800px] bg-rose-50/10'
+          className='mx-auto my-6 max-w-200 bg-rose-50/10'
         >
           {message}
         </Alert>
@@ -85,7 +85,7 @@ const DataComponent = async () => {
 
     if (success === true) {
       return (
-        <pre className='bg-card mx-auto mb-6 max-w-[800px] overflow-scroll rounded-lg border p-4 shadow'>
+        <pre className='bg-card mx-auto mb-6 max-w-200 overflow-scroll rounded-lg border p-4 shadow'>
           {JSON.stringify(data, null, 2)}
         </pre>
       )

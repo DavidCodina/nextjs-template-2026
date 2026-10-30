@@ -1,11 +1,4 @@
-// This should also be defined in src/types. However, I've duplicated
-// it here so that this utility is portable.
-type ResponseObject<T = unknown> = {
-  data: T
-  message: string
-  success: boolean
-  errors?: Record<string, string> | null
-}
+import type { ResBody } from '@/types'
 
 /* ======================
 
@@ -23,13 +16,15 @@ const isStringDict = (value: unknown): value is Record<string, string> => {
 /* ========================================================================
 
 ======================================================================== */
+// ⚠️ Updated in 12/2025 to require `code` property.
 
-export const isResBody = (value: unknown): value is ResponseObject => {
+export const isResBody = <T>(value: unknown): value is ResBody<T> => {
   const isObject = typeof value === 'object' && value !== null
   if (!isObject) {
     return false
   }
 
+  const isCode = 'code' in value && typeof value.code === 'string'
   const isData = 'data' in value
   const isMessage = 'message' in value && typeof value.message === 'string'
   const isSuccess = 'success' in value && typeof value.success === 'boolean'
@@ -42,5 +37,5 @@ export const isResBody = (value: unknown): value is ResponseObject => {
     return isStringDict(value.errors)
   })()
 
-  return isData && isMessage && isSuccess && isErrorsOrUndefined
+  return isCode && isData && isMessage && isSuccess && isErrorsOrUndefined
 }

@@ -1,5 +1,5 @@
 import { Page, PageContainer, UpdateTagButton } from '@/components'
-import { PRIVATE_TIME_TAG } from '../caching/PrivateComponentDemo'
+import { PRIVATE_TIME_TAG } from '../caching/PrivateServerFunctionDemo'
 
 // import { ComponentDemos } from '@/components/ComponentDemos'
 
