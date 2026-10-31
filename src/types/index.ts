@@ -1,25 +1,6 @@
-// This is an example of a type that can be used as a client/server contract for API calls.
-
 import { auth } from '@/lib/auth'
 import { SUPPORTED_OAUTH_PROVIDERS } from '@/lib/constants'
 import { codes } from '@/utils'
-
-// export type Code =
-//   | 'OK'
-//   | 'CREATED'
-//   | 'UPDATED'
-//   | 'DELETED'
-//   | 'BAD_REQUEST'
-//   | 'UNAUTHORIZED'
-//   | 'FORBIDDEN'
-//   | 'NOT_FOUND'
-//   | 'INTERNAL_SERVER_ERROR'
-//   | 'STOCK_ERROR_FOUND'
-//   | 'PRICE_ERROR_FOUND'
-//   | 'ORDER_EXISTS'
-//   | 'USER_ARCHIVED'
-//   | 'INVALID_CREDENTIALS'
-//   | 'EMAIL_UNVERIFIED'
 
 export type Code = (typeof codes)[keyof typeof codes]
 

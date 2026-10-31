@@ -1,35 +1,14 @@
-import { Page, PageContainer, UpdateTagButton } from '@/components'
-import { PRIVATE_TIME_TAG } from '../caching/PrivateServerFunctionDemo'
-
-// import { ComponentDemos } from '@/components/ComponentDemos'
+import { Page, PageContainer } from '@/components'
 
 //` Update eCommerce app with all auth related files, including proxy.ts. Parts of auth.ts, etc.
 
-//# Review Better Auth
-//# - including custom components: SignedIn, SignedOut, SignIn, Authenticated, AdminOnly, getServerSession.
+// # Review Better Auth
+// # - including custom components: SignedIn, SignedOut, SignIn, Authenticated, AdminOnly, getServerSession.
 
-//# Also review auth.actions and user.actions. These look fucked up.
+// # Also review auth.actions and user.actions. These look fucked up.
 
-//# Also ProtectedAction, which looks like it needs updating...
+// # Also ProtectedAction, which looks like it needs updating...
 
-//# Also review login and register pages.
-
-//# Also review my blog article here:
-//# https://www.linkedin.com/posts/david-codina-b7b015230_nextjs-proxyts-for-superficial-authentication-activity-7408243100751454208-n1p2
-
-//# When I deploy this to Vercel it's 7 hours ahead.
-//# How can I fix that?
-
-// const getTime = async () => {
-//   const time = new Date().toLocaleTimeString('en-US', {
-//     hour12: true,
-//     hour: 'numeric',
-//     minute: '2-digit',
-//     second: '2-digit'
-//   })
-
-//   return time
-// }
 // ! import { InputDemo } from '@/components/Input/demos/InputDemo'
 // https://nextjs.org/docs/messages/blocking-prerender-dynamic#allow-blocking-route
 // https://nextjs.org/blog/next-16-3-instant-navigations
@@ -40,22 +19,19 @@ import { PRIVATE_TIME_TAG } from '../caching/PrivateServerFunctionDemo'
 ======================================================================== */
 
 // Todo: Sidebar needs CSS fix for the border when both defaultCollapsible='none' and defaultVariant='inset'
-//# Also defaultCollapsible='none' Sidebar header is not right.
+// # Also defaultCollapsible='none' Sidebar header is not right.
 
 // Todo: Create a Posts and PostDetails page with full CRUD.
 
 // Todo: As an experiment, eventually switch back to the local Postgres database
-//# when in development.
+// # when in development.
 
 // Todo: Review Calendar behavior and best practices/contracts when sending dates to server.
 
 // Todo: Build out RHF controlled form demo.
 
 // Todo: Change all /components components to PascalCase & update components/index.ts
-//# Watch out for Vercel Gotcha - name append 'X' temporarily.
-
-// Bonus: Consider adding special variants in button, badge, and alert of
-// light, dark, and light-dark. These will be quasi-custom color variants.
+// # Watch out for Vercel Gotcha - name append 'X' temporarily.
 
 const Home = async () => {
   // Anti-pattern: Do not await an async function directly in page.tsx,
@@ -64,11 +40,6 @@ const Home = async () => {
   // the async data locally in the child component, or pass down a
   // promise as a prop the the child component and implement use() API.
   // ❌ const session = await getData()
-
-  // const posts   = await getPosts()
-  // const { data } = await getUsers()
-
-  // const time = await getTime()
 
   /* ======================
           return
@@ -93,26 +64,6 @@ const Home = async () => {
       //
       ///////////////////////////////////////////////////////////////////////////
       >
-        <div className='my-12 flex items-center justify-center gap-4'>
-          <UpdateTagButton
-            // Client-side only
-            // onUpdated={(result) => { console.log('\nUpdate result:', result) }}
-            shouldLog={true}
-            tag='posts'
-            size='sm'
-          >
-            Purge Posts
-          </UpdateTagButton>
-
-          <UpdateTagButton shouldLog={true} tag='time' size='sm'>
-            Purge Time
-          </UpdateTagButton>
-
-          <UpdateTagButton tag={PRIVATE_TIME_TAG} size='sm'>
-            Purge Private Time
-          </UpdateTagButton>
-        </div>
-
         {/* <Snippet
           className='my-12'
           code={`export const randomFail = (failureRate: number = 0.5): boolean => {
@@ -206,9 +157,6 @@ const Home = async () => {
           <span className='edge'></span>
           <span className='front'> Push me </span>
         </button> */}
-
-        {/* <div className='text-primary my-6 text-center text-xl'>{time}</div> */}
-        {/* <ComponentDemos /> */}
       </PageContainer>
     </Page>
   )

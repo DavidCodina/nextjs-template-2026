@@ -37,6 +37,35 @@ export const metadata: Metadata = {
 // It doesn't matter if this component does not have child components that implement 'use cache'.
 // As soon as you turn that flag on, 'force-dynamic' is no longer allowed.
 //
+/////////////////////////
+//
+// Add this to '/' page.
+//
+// import {  UpdateTagButton } from '@/components'
+// import { PRIVATE_TIME_TAG } from '../caching/PrivateServerFunctionDemo'
+//
+// ...
+//
+// <div className='my-12 flex items-center justify-center gap-4'>
+//   <UpdateTagButton
+//     // Client-side only
+//     // onUpdated={(result) => { console.log('\nUpdate result:', result) }}
+//     shouldLog={true}
+//     tag='posts'
+//     size='sm'
+//   >
+//     Purge Posts
+//   </UpdateTagButton>
+
+//   <UpdateTagButton shouldLog={true} tag='time' size='sm'>
+//     Purge Time
+//   </UpdateTagButton>
+
+//   <UpdateTagButton tag={PRIVATE_TIME_TAG} size='sm'>
+//     Purge Private Time
+//   </UpdateTagButton>
+// </div>
+//
 ///////////////////////////////////////////////////////////////////////////
 
 export const instant = false
