@@ -30,9 +30,6 @@ import { Page, PageContainer } from '@/components'
 
 // Todo: Build out RHF controlled form demo.
 
-// Todo: Change all /components components to PascalCase & update components/index.ts
-// # Watch out for Vercel Gotcha - name append 'X' temporarily.
-
 // export const instant = false
 const Home = async () => {
   // Anti-pattern: Do not await an async function directly in page.tsx,
