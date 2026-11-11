@@ -33,6 +33,7 @@ import { Page, PageContainer } from '@/components'
 // Todo: Change all /components components to PascalCase & update components/index.ts
 // # Watch out for Vercel Gotcha - name append 'X' temporarily.
 
+// export const instant = false
 const Home = async () => {
   // Anti-pattern: Do not await an async function directly in page.tsx,
   // especially the home page. It will always block rendering.
@@ -74,7 +75,6 @@ const Home = async () => {
   return Math.random() < failureRate
 }`}
         /> */}
-
         {/* <style>{`
         .pushable {
     position: relative;

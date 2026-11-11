@@ -155,7 +155,6 @@ export default async function RootLayout({
           Also, make sure <Toaster /> is inside of <Providers>, so it has access to the theme. */}
 
           <Toaster />
-          {/* <SessionProvider> */}
 
           {/* The SidebarProvider is consumed here and not with the other providers in order
           to implement the optional 'persisted State' feature with cookies. */}
@@ -199,7 +198,6 @@ export default async function RootLayout({
               </SidebarInset>
             </SidebarFlipper>
           </SidebarProvider>
-          {/* </SessionProvider> */}
         </Providers>
       </body>
     </html>
