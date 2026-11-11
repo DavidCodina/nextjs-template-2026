@@ -1,6 +1,0 @@
-export * from './Card'
-export * from './CardHeader'
-export * from './CardFooter'
-export * from './CardTitle'
-export * from './CardDescription'
-export * from './CardContent'
