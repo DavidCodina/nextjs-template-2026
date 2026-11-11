@@ -49,7 +49,7 @@ export * from './Select'
 export * from './SelectNative'
 export * from './Separator'
 export * from './Sheet'
-export * from './skeleton'
+export * from './Skeleton'
 export * from './Sidebar'
 
 export * from './SignedIn'

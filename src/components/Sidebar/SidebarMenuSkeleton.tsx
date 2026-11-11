@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { cn } from '@/utils'
-import { Skeleton } from '@/components/skeleton'
+import { Skeleton } from '@/components/Skeleton'
 
 /* ========================================================================
 
