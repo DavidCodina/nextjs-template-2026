@@ -47,6 +47,45 @@ export type LoginResolvedResponse = Awaited<LoginResponsePromise>
 //
 //   - auth.api.signIn() / signOut() - Absolutely, because there's no client-side session management
 //
+/////////////////////////
+//
+// Usage:
+//
+// const _handleServerEmailLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+//   e.preventDefault()
+//
+//   if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
+//     toast.error('Email and password are required.')
+//     return
+//   }
+//
+//   startEmailLoginTransition(async () => {
+//     try {
+//       const { message, success } = await login({
+//         email,
+//         password
+//       })
+//
+//       if (success !== true) {
+//         const errorMessage = typeof message === 'string' ? message : 'Unable to log in.'
+//         toast.error(errorMessage, {
+//           // duration: Infinity
+//         })
+//
+//         return
+//       }
+//
+//       toast.success('Login success.')
+//       router.replace('/user')
+//     } catch (_err) {
+//       toast.error('Unable to log in.')
+//     } finally {
+//       setEmail('')
+//       setPassword('')
+//     }
+//   })
+// }
+//
 ///////////////////////////////////////////////////////////////////////////
 
 export const login: Login = async ({ email, password }) => {

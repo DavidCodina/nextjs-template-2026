@@ -197,7 +197,7 @@ const config = {
   // and internally maps to the appropriate environment, which is jest-environment-jsdom.
   // You do not need to specify testEnvironment: 'jest-environment-jsdom' explicitly,
   // as Jest will automatically resolve 'jsdom' to the correct environment.
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -212,9 +212,7 @@ const config = {
   // ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  testPathIgnorePatterns: ['/node_modules/', '<rootDir>/e2e/']
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],

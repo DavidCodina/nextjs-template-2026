@@ -20,11 +20,7 @@ export const metadata: Metadata = {
 //   ❌ useSearchParams() should be wrapped in a suspense boundary at page "/login".
 //   Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
 //
-// Solution: Either make make the page dynamic with:
-//
-//   export const dynamic = 'force-dynamic'
-//
-// Or wrap the LoginForm with a Suspense boundary.
+// Solution: wrap the LoginForm with a Suspense boundary.
 // See also useSearchParams() docs: https://nextjs.org/docs/app/api-reference/functions/use-search-params
 //
 ///////////////////////////////////////////////////////////////////////////

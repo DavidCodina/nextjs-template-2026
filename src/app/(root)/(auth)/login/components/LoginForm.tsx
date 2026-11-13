@@ -11,7 +11,6 @@ import { Google } from './Google'
 import { LinkedIn } from './LinkedIn'
 
 import { Button, Input } from '@/components'
-import { login } from '@/actions'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 
 /* ========================================================================
@@ -21,6 +20,7 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 const LoginForm = () => {
   const router = useRouter()
   // ⚠️ When implementing useSearchParams(), it's generally recommended to wrap in Suspense.
+  // Using `export const instant = false` on the top-level page.tsx as an alternative will not work.
   const searchParams = useSearchParams()
 
   //# What happens if your callackUrl has search params of its own?
@@ -41,46 +41,6 @@ const LoginForm = () => {
       toast.success('Email verification successful!')
     }
   }, []) // eslint-disable-line
-
-  /* ======================
-
-  ====================== */
-
-  const _handleServerEmailLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault()
-
-    if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
-      toast.error('Email and password are required.')
-      return
-    }
-
-    startEmailLoginTransition(async () => {
-      try {
-        const { message, success } = await login({
-          email,
-          password
-        })
-
-        if (success !== true) {
-          const errorMessage = typeof message === 'string' ? message : 'Unable to log in.'
-          toast.error(errorMessage, {
-            // duration: Infinity
-          })
-
-          return
-        }
-
-        toast.success('Login success.')
-
-        router.replace('/user')
-      } catch (_err) {
-        toast.error('Unable to log in.')
-      } finally {
-        setEmail('')
-        setPassword('')
-      }
-    })
-  }
 
   /* ======================
   resendVerificationEmail()
@@ -246,10 +206,7 @@ const LoginForm = () => {
         className='bg-card mx-auto mb-2 max-w-lg overflow-hidden rounded-lg border shadow'
         noValidate
       >
-        <div
-          className='flex justify-center gap-6 bg-white px-4 py-2'
-          style={{ boxShadow: '0px 1px 3px rgba(0,0,0,0.25)' }}
-        >
+        <div className='flex justify-center gap-6 px-4 py-2' style={{ boxShadow: '0px 1px 3px rgba(0,0,0,0.25)' }}>
           <button
             className='cursor-pointer transition-transform hover:scale-125'
             onClick={() => {

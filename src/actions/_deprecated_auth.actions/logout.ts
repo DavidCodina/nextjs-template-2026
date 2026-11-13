@@ -35,6 +35,31 @@ export type LogOutResolvedResponse = Awaited<LogOutResponsePromise>
 //
 //   - auth.api.signIn() / signOut() - Absolutely, because there's no client-side session management
 //
+/////////////////////////
+//
+// Usage:
+//
+// const _handleServerLogout = async () => {
+//   try {
+//     const { /* code, */ data, message, success } = await logout()
+//
+//     if (success !== true) {
+//       const errorMessage = typeof message === 'string' ? message : 'Unable to log out.'
+//       toast.error(errorMessage, {
+//         // duration: Infinity
+//       })
+//       console.log('\nError from logout() server action')
+//       console.log(message)
+//       return
+//     }
+//     toast.success('Log out success.')
+//     console.log('\ndata from logout() server action')
+//     console.log(data)
+//   } catch (_err) {
+//     toast.error('Unable to log out.')
+//   }
+// }
+//
 ///////////////////////////////////////////////////////////////////////////
 
 export const logout: LogOut = async () => {

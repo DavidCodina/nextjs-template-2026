@@ -225,13 +225,9 @@ export const RegisterForm = () => {
         </Button>
       </form>
 
-      {/* 
-        //# What is target='_self' ?
-      */}
-
       <div className='text-muted-foreground text-center text-sm'>
         Already have an account?{' '}
-        <Link className='text-primary font-medium underline' href='/login' target='_self'>
+        <Link className='text-primary font-medium underline' href='/login'>
           Sign In
         </Link>
       </div>
