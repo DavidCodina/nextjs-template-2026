@@ -1,17 +1,28 @@
-/* This file is imported into components in global.css 
+/* Most of the time, it makes more sense to do everything in Tailwind.
+However, the Table component has many styles that chain combinators to
+make complex selectors that target nested elements. Converting this to
+Tailwind is cumbersome, and it simply makes more sense to use actual
+CSS here.
+
+This file is imported into components in global.css as follows:
+
+@layer components {
+  @import './components/Table/index.css';
+}
+
 This is important for two reasons:
 
 1. It allows Tailwind utility classes to maintain a generally
 higher precedence due to still coming later in the cascade.
 
 2. It ensures that the CSS custom properties will be read 
-correctly and used within the JIT compliation process. 
+correctly and used within the JIT compilation process. 
 
 That said, it's still probably better to move this into a
 Tailwind plugin. */
 
 :root {
-  --table-bg: var(--card);
+  --table-bg: var(--color-card);
   --table-border-color: var(--color-border);
 
   --table-striped-bg: var(--color-accent);
@@ -25,13 +36,21 @@ Tailwind plugin. */
   --table-active-color: var(--color-accent-foreground);
   --table-group-divider-color: var(--table-border-color);
 
-  --table-header-footer-accent-bg: var(--primary-50);
+  --table-header-footer-accent-bg: var(--primary-soft);
+
+  --table-disabled-color: var(--color-neutral-400);
 }
 
 .shadcn-table-container {
   border: 1px solid var(--table-border-color);
   overflow-x: auto;
-  postion: relative;
+  position: relative;
+  width: 100%;
+}
+
+.shadcn-table-scroll-container {
+  overflow-x: auto;
+  position: relative;
   width: 100%;
 }
 
@@ -41,7 +60,7 @@ Tailwind plugin. */
   border-color: var(--table-border-color);
   box-sizing: border-box;
   caption-side: bottom;
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   margin: 0px;
   position: relative;
   vertical-align: top;
@@ -89,9 +108,9 @@ Tailwind plugin. */
       .caption-top
 ====================== */
 
-.caption-top {
-  caption-side: top;
-}
+/* Tailwind already has this
+.caption-top { caption-side: top; } 
+*/
 
 /* ======================
   .table-xs, .table-sm
@@ -170,12 +189,12 @@ Tailwind plugin. */
 /* ======================
     .table-hover
 ====================== */
-/* This was just '.table-hover > tbody > tr:hover > *', but we now
+/* This was initially just '.table-hover > tbody > tr:hover > *', but we now
 need a higher specificity to override '.table-striped-data'.
 Also, !important is used here to override .table-active.
 Hover styles should always have the highest precedence.
 After that, .table-active and .table-active-data should
-have precedence over striping */
+have precedence over striping. */
 
 .table-hover > tbody > tr:hover {
   outline: 1px solid var(--table-hover-outline-color);
@@ -190,6 +209,10 @@ have precedence over striping */
       .table-flush
 ====================== */
 /* Used to remove outer border from table. */
+
+/* .table-flush {
+  outline: 2px dashed deeppink;
+} */
 
 .table-flush thead > tr:first-child {
   border-top: none;
@@ -251,6 +274,38 @@ have precedence over striping */
        Variants
 ====================== */
 
+.shadcn-table-container.shadcn-table-disabled {
+  border-color: var(--color-neutral-400);
+  --table-striped-bg: oklch(from var(--table-disabled-color) l c h / 0.05);
+  --table-hover-outline-color: var(--table-disabled-color);
+  --table-hover-bg: oklch(from var(--table-disabled-color) l c h / 0.1);
+}
+
+.shadcn-table-disabled {
+  --table-striped-bg: oklch(from var(--table-disabled-color) l c h / 0.05);
+  --table-hover-outline-color: var(--table-disabled-color);
+  --table-hover-bg: oklch(from var(--table-disabled-color) l c h / 0.1);
+}
+
+.shadcn-table.shadcn-table-disabled thead tr {
+  border-bottom-color: var(--table-disabled-color);
+}
+
+.shadcn-table.shadcn-table-disabled tbody tr td {
+  pointer-events: none;
+}
+
+.shadcn-table.shadcn-table-disabled th {
+  border-color: var(--table-disabled-color);
+  color: var(--table-disabled-color);
+}
+
+.shadcn-table.shadcn-table-disabled tfoot tr {
+  border-top-color: var(--table-disabled-color);
+}
+
+/* =================== */
+
 .shadcn-table-container.shadcn-table-primary {
   border-color: var(--color-primary);
   --table-striped-bg: oklch(from var(--color-primary) l c h / 0.05);
@@ -259,7 +314,7 @@ have precedence over striping */
 }
 
 .shadcn-table-primary {
-  /* If border-color is set here,t hen it will be inherited throughout
+  /* If border-color is set here, then it will be inherited throughout
   the table. It's being omitted here based on the assumption thta 99% of
   the time the table's outer border will come from the container.
   /* border-color: var(--color-primary); */
@@ -280,6 +335,8 @@ have precedence over striping */
 .shadcn-table.shadcn-table-primary tfoot tr {
   border-top-color: var(--color-primary);
 }
+
+/* =================== */
 
 .shadcn-table-container.shadcn-table-secondary {
   border-color: var(--color-secondary);

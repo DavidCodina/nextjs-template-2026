@@ -1,7 +1,5 @@
 'use client'
 
-import './styles.css'
-
 // import {} from '@mantine/core'
 
 /* ========================================================================
@@ -13,11 +11,7 @@ export const ClientComponent = () => {
           return
   ====================== */
 
-  return (
-    <div>
-      <div className='box-color mx-auto my-12 size-50 rounded-lg border bg-indigo-500' />
-    </div>
-  )
+  return <div></div>
 }
 
 // const MyButton = () => {

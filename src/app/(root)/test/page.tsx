@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 import { Page, PageContainer, Title } from '@/components'
-import { TodoList } from './TodoList'
-// import { ClientComponent } from './ClientComponent'
+// import { TodoList } from './TodoList'
+import { ClientComponent } from './ClientComponent'
 // import { ComponentDemos } from '@/components/ComponentDemos'
 
 export const metadata: Metadata = {
@@ -34,9 +34,9 @@ const PageTest = async () => {
           Test Page
         </Title>
 
-        <TodoList />
+        {/* <TodoList /> */}
 
-        {/* <ClientComponent /> */}
+        <ClientComponent />
       </PageContainer>
     </Page>
   )
